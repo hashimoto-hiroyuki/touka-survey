@@ -253,7 +253,7 @@ const SurveyEditor = () => {
             max-width: none; 
             box-shadow: none; 
             margin: 0;
-            padding: 6mm 12mm;
+            padding: 5mm 10mm;
             height: 297mm !important;
             overflow: hidden !important;
             border: none !important;
@@ -615,10 +615,10 @@ const SurveyEditor = () => {
 
       {/* === プレビュー・印刷エリア === */}
       <div className="flex justify-center p-4 md:p-8 print:p-0">
-        <div ref={printRef} className="print-area bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[12mm] relative text-base leading-snug box-border mx-auto">
+        <div ref={printRef} className="print-area bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[10mm] relative text-base leading-snug box-border mx-auto">
           
           {/* ヘッダー */}
-          <div className="grid grid-cols-[1fr_auto_1fr] items-end mb-2 border-b-0 pb-0 w-full">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-end mb-1 border-b-0 pb-0 w-full">
             <div></div>
             <div className="text-center px-2">
               <h1 className="text-2xl font-bold inline-block border-b-2 border-black pb-1 whitespace-nowrap">
@@ -643,34 +643,34 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          <p className="text-xs mb-2 font-medium">※はっきりと読みやすい文字でお書きくださいますようお願いします。</p>
+          <p className="text-xs mb-1 font-medium">※はっきりと読みやすい文字でお書きくださいますようお願いします。</p>
 
           {/* 基本情報入力欄 */}
-          <div className="mb-3 space-y-1">
+          <div className="mb-2 space-y-0.5">
             <div className="flex items-end pb-0.5">
-              <span className="w-20 font-bold text-lg">質問１</span>
-              <span className="mr-3">名前（カタカナ）氏</span>
+              <span className="w-16 font-bold text-base">質問１</span>
+              <span className="mr-3 text-sm">名前（カタカナ）氏</span>
               <div className="flex-1 border-b border-gray-300 mx-2"></div>
-              <span className="mr-3">名</span>
+              <span className="mr-3 text-sm">名</span>
               <div className="flex-1 border-b border-gray-300 mx-2"></div>
             </div>
 
             <div className="flex items-end pb-0.5">
-              <span className="w-20 font-bold text-lg">質問２</span>
-              <span className="mr-4">生年月日</span>
-              <span className="mr-2">昭和・平成・令和</span>
-              <span className="w-16 border-b border-gray-300 mx-2 text-center"></span>
-              <span>年</span>
-              <span className="w-10 border-b border-gray-300 mx-2 text-center"></span>
-              <span>月</span>
-              <span className="w-10 border-b border-gray-300 mx-2 text-center"></span>
-              <span>日</span>
+              <span className="w-16 font-bold text-base">質問２</span>
+              <span className="mr-4 text-sm">生年月日</span>
+              <span className="mr-2 text-sm">昭和・平成・令和</span>
+              <span className="w-14 border-b border-gray-300 mx-1 text-center"></span>
+              <span className="text-sm">年</span>
+              <span className="w-8 border-b border-gray-300 mx-1 text-center"></span>
+              <span className="text-sm">月</span>
+              <span className="w-8 border-b border-gray-300 mx-1 text-center"></span>
+              <span className="text-sm">日</span>
             </div>
 
             <div className="flex items-end pb-0.5">
-              <span className="w-20 font-bold text-lg">質問３</span>
-              <span className="mr-6">性別</span>
-              <div className="flex gap-8">
+              <span className="w-16 font-bold text-base">質問３</span>
+              <span className="mr-4 text-sm">性別</span>
+              <div className="flex gap-6 text-sm">
                 <label className="flex items-center gap-1"><span>□</span> 男</label>
                 <label className="flex items-center gap-1"><span>□</span> 女</label>
                 <label className="flex items-center gap-1"><span>□</span> 回答しない</label>
@@ -678,83 +678,91 @@ const SurveyEditor = () => {
             </div>
 
             <div className="flex items-end pb-0.5">
-              <span className="w-20 font-bold text-lg">質問４</span>
-              <span className="mr-6">身長</span>
-              <span className="w-32 border-b border-gray-300 mx-2"></span>
-              <span>cm</span>
+              <span className="w-16 font-bold text-base">質問４</span>
+              <span className="mr-4 text-sm">血液型</span>
+              <div className="flex gap-6 text-sm">
+                <label className="flex items-center gap-1"><span>□</span> A型</label>
+                <label className="flex items-center gap-1"><span>□</span> B型</label>
+                <label className="flex items-center gap-1"><span>□</span> O型</label>
+                <label className="flex items-center gap-1"><span>□</span> AB型</label>
+                <label className="flex items-center gap-1"><span>□</span> わからない</label>
+              </div>
             </div>
 
             <div className="flex items-end pb-0.5">
-              <span className="w-20 font-bold text-lg">質問５</span>
-              <span className="mr-6">体重</span>
-              <span className="w-32 border-b border-gray-300 mx-2"></span>
-              <span>kg</span>
+              <span className="w-16 font-bold text-base">質問５</span>
+              <span className="mr-4 text-sm">身長</span>
+              <span className="w-28 border-b border-gray-300 mx-2"></span>
+              <span className="text-sm">cm</span>
+              <span className="ml-8 mr-4 text-sm">体重</span>
+              <span className="w-28 border-b border-gray-300 mx-2"></span>
+              <span className="text-sm">kg</span>
             </div>
           </div>
 
-          <p className="text-sm font-bold mb-1 mt-2">※以下、□を黒く■塗りつぶしてください。</p>
+          <p className="text-xs font-bold mb-1">※以下、□を黒く■塗りつぶしてください。</p>
           
           {/* 中盤の質問テーブル */}
-          <table className="w-full text-base mb-2 border-collapse">
+          <table className="w-full text-sm mb-1 border-collapse">
             <tbody>
               <tr>
-                <td className="py-1 w-20 align-top font-bold text-lg">質問５</td>
-                <td className="py-1 w-28 align-top font-medium">糖尿病</td>
-                <td className="py-1">
-                  <div className="flex flex-wrap gap-x-6 gap-y-1">
+                <td className="py-0.5 w-16 align-top font-bold text-base">質問６</td>
+                <td className="py-0.5 w-24 align-top font-medium">糖尿病</td>
+                <td className="py-0.5">
+                  <div className="flex flex-wrap gap-x-4 gap-y-0.5">
                     <span>□ なし</span>
                     <span>□ 5年未満</span>
-                    <span>5～10年前</span>
+                    <span>□ 5～10年前</span>
                     <span>□ 10年以上前</span>
                     <span>□ わからない</span>
                   </div>
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問６</td>
-                <td className="py-1 align-top font-medium">脂質異常症</td>
-                <td className="py-1">
-                  <div className="flex flex-wrap gap-x-6 gap-y-1">
+                <td className="py-0.5 align-top font-bold text-base">質問７</td>
+                <td className="py-0.5 align-top font-medium">脂質異常症</td>
+                <td className="py-0.5">
+                  <div className="flex flex-wrap gap-x-4 gap-y-0.5">
                     <span>□ なし</span>
                     <span>□ 5年未満</span>
-                    <span>5～10年前</span>
+                    <span>□ 5～10年前</span>
                     <span>□ 10年以上前</span>
                     <span>□ わからない</span>
                   </div>
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問７</td>
-                <td className="py-1" colSpan="2">
-                  <div className="flex justify-between w-full max-w-2xl">
-                    <span className="font-medium">兄弟に糖尿病歴はありますか？</span>
-                    <div className="flex gap-8">
-                      <span>□ はい</span>
-                      <span>□ いいえ</span>
-                      <span>□ わからない</span>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="py-1 align-top font-bold text-lg">質問８</td>
-                <td className="py-1" colSpan="2">
-                  <div className="flex justify-between w-full max-w-2xl">
-                    <span className="font-medium">両親に糖尿病歴はありますか？</span>
-                    <div className="flex gap-8">
-                      <span>□ はい</span>
-                      <span>□ いいえ</span>
-                      <span>□ わからない</span>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="py-1 align-top font-bold text-lg">質問９</td>
-                <td className="py-1" colSpan="2">
+                <td className="py-0.5 align-top font-bold text-base">質問８</td>
+                <td className="py-0.5" colSpan="2">
                   <div className="flex justify-between w-full max-w-xl">
+                    <span className="font-medium">兄弟に糖尿病歴はありますか？</span>
+                    <div className="flex gap-6">
+                      <span>□ はい</span>
+                      <span>□ いいえ</span>
+                      <span>□ わからない</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-0.5 align-top font-bold text-base">質問９</td>
+                <td className="py-0.5" colSpan="2">
+                  <div className="flex justify-between w-full max-w-xl">
+                    <span className="font-medium">両親に糖尿病歴はありますか？</span>
+                    <div className="flex gap-6">
+                      <span>□ はい</span>
+                      <span>□ いいえ</span>
+                      <span>□ わからない</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-0.5 align-top font-bold text-base">質問10</td>
+                <td className="py-0.5" colSpan="2">
+                  <div className="flex justify-between w-full max-w-md">
                     <span className="font-medium">ほとんど運動しない</span>
-                    <div className="flex gap-8">
+                    <div className="flex gap-6">
                       <span>□ はい</span>
                       <span>□ いいえ</span>
                     </div>
@@ -762,10 +770,10 @@ const SurveyEditor = () => {
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問10</td>
-                <td className="py-1" colSpan="2">
+                <td className="py-0.5 align-top font-bold text-base">質問11</td>
+                <td className="py-0.5" colSpan="2">
                   <div className="mb-0.5 font-medium">お菓子、スイーツなどを週何回食べますか</div>
-                  <div className="flex gap-8 ml-8">
+                  <div className="flex gap-6 ml-6">
                     <span>□ ほぼ毎日</span>
                     <span>□ 週2~3回</span>
                     <span>□ 週1回以下または食べない</span>
@@ -776,129 +784,127 @@ const SurveyEditor = () => {
           </table>
 
           {/* 飲み物 */}
-          <div className="mb-2">
-            <p className="font-bold text-lg mb-0.5">質問11　最もよく飲む飲み物は何ですか？</p>
-            <div className="ml-8 space-y-0.5">
+          <div className="mb-1">
+            <p className="font-bold text-base mb-0.5">質問12　最もよく飲む飲み物は何ですか？</p>
+            <div className="ml-6 space-y-0.5 text-sm">
               <div className="flex items-start">
                 <span className="mr-2 mt-0.5">□</span>
                 <div>
-                  <p className="font-medium">有糖飲料</p>
-                  <p className="text-sm text-gray-600 pl-4">（ジュース、炭酸飲料、スポーツドリンク、エナジードリンク、加糖コーヒーなど）</p>
+                  <span className="font-medium">有糖飲料</span>
+                  <span className="text-gray-600 ml-1">（ジュース、炭酸飲料、スポーツドリンク、エナジードリンク、加糖コーヒーなど）</span>
                 </div>
               </div>
-              <div className="flex items-center mt-0.5">
+              <div className="flex items-center">
                 <span className="mr-2">□</span>
-                <p className="font-medium">無糖飲料（お茶、水、炭酸水、無糖コーヒーなど）</p>
+                <span className="font-medium">無糖飲料（お茶、水、炭酸水、無糖コーヒーなど）</span>
               </div>
             </div>
           </div>
 
           {/* アルコール */}
-          <div className="mb-2">
-            <p className="font-bold text-lg mb-1">質問12　飲酒習慣についてご質問致します。</p>
+          <div className="mb-1">
+            <p className="font-bold text-base mb-0.5">質問13　飲酒習慣についてご質問致します。</p>
             
-            <div className="ml-4">
-              <div className="flex items-center mb-1 font-bold">
+            <div className="ml-4 text-sm">
+              <div className="flex items-center mb-0.5 font-bold">
                 <span className="mr-2">□</span>
                 <span>飲む</span>
               </div>
 
-              <div className="ml-6">
-                <p className="mb-1 font-medium">どのお酒をどのくらいの量飲みますか？(複数回答可)</p>
+              <div className="ml-4">
+                <p className="mb-0.5 font-medium text-xs">どのお酒をどのくらいの量飲みますか？(複数回答可)</p>
                 
-                <div className="text-gray-700 mb-1 pl-3 border-l-4 border-gray-400 text-sm">
-                  <div className="flex items-end mb-0.5">
-                    <span className="font-bold mr-1">(回答例1)</span>
-                    <span className="border-b border-gray-600 w-16 text-center mx-1">ビール</span>
-                    <span>を週に</span>
-                    <span className="border-b border-gray-600 w-10 text-center mx-1">2回</span>
-                    <span>、</span>
-                    <span className="border-b border-gray-600 w-20 text-center mx-1">350ml缶</span>
-                    <span>を</span>
-                    <span className="border-b border-gray-600 w-10 text-center mx-1">2缶</span>
-                    <span>程度</span>
-                  </div>
+                <div className="text-gray-700 mb-0.5 pl-2 border-l-2 border-gray-400 text-xs">
                   <div className="flex items-end">
-                    <span className="font-bold mr-1">(回答例2)</span>
-                    <span className="border-b border-gray-600 w-28 text-center mx-1">しょうちゅう水割</span>
+                    <span className="font-bold mr-1">(例1)</span>
+                    <span className="border-b border-gray-600 w-14 text-center mx-0.5">ビール</span>
                     <span>を週に</span>
-                    <span className="border-b border-gray-600 w-10 text-center mx-1">3回</span>
+                    <span className="border-b border-gray-600 w-8 text-center mx-0.5">2回</span>
                     <span>、</span>
-                    <span className="border-b border-gray-600 w-16 text-center mx-1">コップ</span>
+                    <span className="border-b border-gray-600 w-16 text-center mx-0.5">350ml缶</span>
                     <span>を</span>
-                    <span className="border-b border-gray-600 w-10 text-center mx-1">3杯</span>
+                    <span className="border-b border-gray-600 w-8 text-center mx-0.5">2缶</span>
+                    <span>程度</span>
+                    <span className="mx-2">|</span>
+                    <span className="font-bold mr-1">(例2)</span>
+                    <span className="border-b border-gray-600 w-20 text-center mx-0.5">焼酎水割</span>
+                    <span>を週に</span>
+                    <span className="border-b border-gray-600 w-8 text-center mx-0.5">3回</span>
+                    <span>、</span>
+                    <span className="border-b border-gray-600 w-12 text-center mx-0.5">コップ</span>
+                    <span>を</span>
+                    <span className="border-b border-gray-600 w-8 text-center mx-0.5">3杯</span>
                     <span>程度</span>
                   </div>
                 </div>
 
-                <div className="space-y-1 mt-1 font-medium text-lg">
+                <div className="space-y-0.5 mt-0.5 text-sm">
                   <div className="flex items-end">
-                    <span className="text-base font-bold">質問12回答1</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
-                    <span className="text-base">を週に</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
-                    <span className="text-base">回、</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
-                    <span className="text-base">を</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
-                    <span className="text-base">程度</span>
+                    <span className="text-xs font-bold w-16">回答1</span>
+                    <span className="border-b-2 border-black w-28 mx-0.5"></span>
+                    <span className="text-xs">を週に</span>
+                    <span className="border-b-2 border-black w-10 mx-0.5"></span>
+                    <span className="text-xs">回、</span>
+                    <span className="border-b-2 border-black w-28 mx-0.5"></span>
+                    <span className="text-xs">を</span>
+                    <span className="border-b-2 border-black w-10 mx-0.5"></span>
+                    <span className="text-xs">程度</span>
                   </div>
                   <div className="flex items-end">
-                    <span className="text-base font-bold">質問12回答2</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
-                    <span className="text-base">を週に</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
-                    <span className="text-base">回、</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
-                    <span className="text-base">を</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
-                    <span className="text-base">程度</span>
+                    <span className="text-xs font-bold w-16">回答2</span>
+                    <span className="border-b-2 border-black w-28 mx-0.5"></span>
+                    <span className="text-xs">を週に</span>
+                    <span className="border-b-2 border-black w-10 mx-0.5"></span>
+                    <span className="text-xs">回、</span>
+                    <span className="border-b-2 border-black w-28 mx-0.5"></span>
+                    <span className="text-xs">を</span>
+                    <span className="border-b-2 border-black w-10 mx-0.5"></span>
+                    <span className="text-xs">程度</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center mt-1 font-bold">
+              <div className="flex items-center mt-0.5 font-bold">
                 <span className="mr-2">□</span>
                 <span>ほとんど飲まない</span>
               </div>
             </div>
           </div>
 
-          <hr className="border-t-2 border-gray-400 my-2" />
+          <hr className="border-t-2 border-gray-400 my-1" />
 
           {/* 医師入力欄 */}
           <div className="relative">
-            <p className="font-bold text-lg mb-1">【医師入力欄】</p>
-            <div className="flex items-end mb-1">
-              <span className="w-20 font-bold">質問13</span>
-              <span className="text-base">歯の抜去位置を記入してください。</span>
-              <div className="ml-4 flex gap-2">
-                <div className="w-8 h-8 border border-gray-500"></div>
-                <div className="w-8 h-8 border border-gray-500"></div>
-                <div className="w-8 h-8 border border-gray-500"></div>
+            <p className="font-bold text-base mb-0.5">【医師入力欄】</p>
+            <div className="flex items-end mb-0.5 text-sm">
+              <span className="w-16 font-bold">質問14</span>
+              <span>歯の抜去位置を記入してください。</span>
+              <div className="ml-4 flex gap-1">
+                <div className="w-6 h-6 border border-gray-500"></div>
+                <div className="w-6 h-6 border border-gray-500"></div>
+                <div className="w-6 h-6 border border-gray-500"></div>
               </div>
             </div>
-            <div className="flex items-start">
-              <span className="w-20 font-bold">質問14</span>
-              <div className="text-base">
-                <p>その他、HbA1c数値などコメントありましたら</p>
-                <p>裏面に自由にご記入願います。</p>
+            <div className="flex items-start text-sm">
+              <span className="w-16 font-bold">質問15</span>
+              <div>
+                <span>その他、HbA1c数値などコメントありましたら裏面に自由にご記入願います。</span>
               </div>
             </div>
 
             {/* QRコード */}
             {clinicName && qrCodeDisplayUrl && (
-              <div className="absolute right-0 -bottom-2">
+              <div className="absolute right-0 -bottom-1">
                 <img 
                   src={generateQRCode(qrCodeDisplayUrl, 150)} 
                   alt="QR Code" 
-                  className="w-24 h-24 object-contain"
+                  className="w-20 h-20 object-contain"
                 />
               </div>
             )}
           </div>
 
-          <div className="text-center mt-3 text-sm font-medium">
+          <div className="text-center mt-2 text-sm font-medium">
             ご協力ありがとうございました。
           </div>
 
