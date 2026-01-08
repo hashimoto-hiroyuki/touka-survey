@@ -807,7 +807,7 @@ const SurveyEditor = () => {
 
           {/* アルコール */}
           <div className="mb-2">
-            <p className="font-bold text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">※選択肢は2ページ目をご参照ください</span></p>
+            <p className="font-bold text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">※別紙の選択肢一覧をご参照ください</span></p>
             
             <div className="ml-6">
               <div className="flex items-center mb-0.5 font-bold">
@@ -923,7 +923,6 @@ const SurveyEditor = () => {
             <h1 className="text-2xl font-bold inline-block border-b-2 border-black pb-1">
               質問13　飲酒習慣　選択肢一覧
             </h1>
-            <p className="text-sm text-gray-600 mt-2">以下の選択肢から該当するものを選んで、1ページ目の回答欄にご記入ください。</p>
           </div>
 
           {/* 4列の選択肢リスト */}
@@ -1009,16 +1008,6 @@ const SurveyEditor = () => {
               </div>
             </div>
 
-          </div>
-
-          {/* 記入例 */}
-          <div className="mt-10 p-5 bg-blue-50 rounded-lg border-2 border-blue-300">
-            <h3 className="font-bold text-blue-800 text-lg mb-3">【記入例】</h3>
-            <div className="text-base text-blue-900 space-y-2">
-              <p>・「<span className="font-bold">ビール</span>」を週に「<span className="font-bold">3回</span>」、「<span className="font-bold">500ml缶</span>」を「<span className="font-bold">2</span>」程度</p>
-              <p>・「<span className="font-bold">焼酎</span>」を週に「<span className="font-bold">5回</span>」、「<span className="font-bold">水割り</span>」を「<span className="font-bold">3</span>」程度</p>
-              <p>・「<span className="font-bold">ワイン</span>」を週に「<span className="font-bold">2回</span>」、「<span className="font-bold">750mlビン</span>」を「<span className="font-bold">1</span>」程度</p>
-            </div>
           </div>
 
           {/* フッター */}
