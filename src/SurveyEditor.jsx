@@ -827,18 +827,18 @@ const SurveyEditor = () => {
                     <span>、</span>
                     <span className="border-b border-gray-600 w-20 text-center mx-1">350ml缶</span>
                     <span>を</span>
-                    <span className="border-b border-gray-600 w-10 text-center mx-1">2缶</span>
+                    <span className="border-b border-gray-600 w-10 text-center mx-1">2</span>
                     <span>程度</span>
                   </div>
                   <div className="flex items-end">
                     <span className="font-bold mr-1">(例2)</span>
-                    <span className="border-b border-gray-600 w-24 text-center mx-1">焼酎水割</span>
+                    <span className="border-b border-gray-600 w-16 text-center mx-1">３</span>
                     <span>を週に</span>
                     <span className="border-b border-gray-600 w-10 text-center mx-1">3回</span>
                     <span>、</span>
-                    <span className="border-b border-gray-600 w-16 text-center mx-1">コップ</span>
+                    <span className="border-b border-gray-600 w-20 text-center mx-1">５</span>
                     <span>を</span>
-                    <span className="border-b border-gray-600 w-10 text-center mx-1">3杯</span>
+                    <span className="border-b border-gray-600 w-10 text-center mx-1">3</span>
                     <span>程度</span>
                   </div>
                 </div>
