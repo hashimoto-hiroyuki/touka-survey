@@ -929,11 +929,11 @@ const SurveyEditor = () => {
           <div className="flex justify-between gap-4 px-1" style={{ minHeight: '45%' }}>
             
             {/* ① お酒の種類 */}
-            <div className="flex-1">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+            <div className="flex-1 border-2 border-gray-700 rounded">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
                 ①お酒の種類
               </h2>
-              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+              <div>
                 {[
                   { num: 1, name: 'ビール' },
                   { num: 2, name: '日本酒' },
@@ -954,11 +954,11 @@ const SurveyEditor = () => {
             </div>
 
             {/* ② 頻度 */}
-            <div className="flex-1">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+            <div className="flex-1 border-2 border-gray-700 rounded">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
                 ②週に何回
               </h2>
-              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+              <div>
                 {['1回', '2回', '3回', '4回', '5回', '6回', '7回（毎日）'].map((item, idx) => (
                   <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 6 ? 'border-b border-gray-300' : ''}`}>
                     {item}
@@ -968,11 +968,11 @@ const SurveyEditor = () => {
             </div>
 
             {/* ③ サイズ・飲み方 */}
-            <div className="flex-1">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+            <div className="flex-1 border-2 border-gray-700 rounded">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
                 ③サイズ/飲み方
               </h2>
-              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+              <div>
                 {[
                   { num: 1, name: '350ml缶' },
                   { num: 2, name: '500ml缶' },
@@ -995,11 +995,11 @@ const SurveyEditor = () => {
             </div>
 
             {/* ④ 数量 */}
-            <div className="flex-1">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+            <div className="flex-1 border-2 border-gray-700 rounded">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
                 ④数量
               </h2>
-              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+              <div>
                 {['1', '2', '3', '4', '5', '6以上'].map((item, idx) => (
                   <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 5 ? 'border-b border-gray-300' : ''}`}>
                     {item}
