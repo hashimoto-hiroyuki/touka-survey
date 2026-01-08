@@ -240,22 +240,25 @@ const SurveyEditor = () => {
     <div className="min-h-screen bg-gray-100 font-sans text-gray-900 pb-10 print:pb-0 print:h-auto print:bg-white">
       <style>{`
         @media print {
-          @page { margin: 0; size: A4; }
+          @page { 
+            margin: 0; 
+            size: A4; 
+          }
           html, body {
-            height: 297mm !important;
-            overflow: hidden !important;
             background: white !important;
           }
           .no-print { display: none !important; }
-          .print-area { 
-            width: 100%; 
-            max-width: none; 
-            box-shadow: none; 
-            margin: 0;
-            padding: 5mm 10mm;
-            height: 297mm !important;
-            overflow: hidden !important;
-            border: none !important;
+          .print-page { 
+            width: 210mm;
+            height: 297mm;
+            padding: 10mm;
+            box-sizing: border-box;
+            page-break-after: always;
+            page-break-inside: avoid;
+            overflow: hidden;
+          }
+          .print-page:last-child {
+            page-break-after: auto;
           }
         }
       `}</style>
@@ -613,8 +616,10 @@ const SurveyEditor = () => {
       </div>
 
       {/* === プレビュー・印刷エリア === */}
-      <div className="flex justify-center p-4 md:p-8 print:p-0">
-        <div ref={printRef} className="print-area bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[10mm] relative text-base leading-normal box-border mx-auto">
+      <div className="flex flex-col items-center p-4 md:p-8 print:p-0 gap-8 print:gap-0">
+        
+        {/* ===== 1ページ目：アンケート本体 ===== */}
+        <div ref={printRef} className="print-page bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[10mm] relative text-base leading-normal box-border mx-auto print:shadow-none">
           
           {/* ヘッダー */}
           <div className="grid grid-cols-[1fr_auto_1fr] items-end mb-2 border-b-0 pb-0 w-full">
@@ -802,7 +807,7 @@ const SurveyEditor = () => {
 
           {/* アルコール */}
           <div className="mb-2">
-            <p className="font-bold text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。</p>
+            <p className="font-bold text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">※選択肢は2ページ目をご参照ください</span></p>
             
             <div className="ml-6">
               <div className="flex items-center mb-0.5 font-bold">
@@ -909,6 +914,120 @@ const SurveyEditor = () => {
           </div>
 
         </div>
+
+        {/* ===== 2ページ目：飲酒習慣 選択肢一覧 ===== */}
+        <div className="print-page bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[10mm] relative text-base leading-normal box-border mx-auto print:shadow-none">
+          
+          {/* ヘッダー */}
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-bold inline-block border-b-2 border-black pb-1">
+              質問13　飲酒習慣　選択肢一覧
+            </h1>
+            <p className="text-sm text-gray-600 mt-2">以下の選択肢から該当するものを選んで、1ページ目の回答欄にご記入ください。</p>
+          </div>
+
+          {/* 4列の選択肢リスト */}
+          <div className="flex justify-between gap-4 px-1" style={{ minHeight: '45%' }}>
+            
+            {/* ① お酒の種類 */}
+            <div className="flex-1">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+                ①お酒の種類
+              </h2>
+              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+                {[
+                  { num: 1, name: 'ビール' },
+                  { num: 2, name: '日本酒' },
+                  { num: 3, name: '焼酎' },
+                  { num: 4, name: 'チューハイ' },
+                  { num: 5, name: 'ワイン' },
+                  { num: 6, name: 'ウイスキー' },
+                  { num: 7, name: 'ブランデー' },
+                  { num: 8, name: '梅酒' },
+                  { num: 9, name: '泡盛' }
+                ].map((item, idx) => (
+                  <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 8 ? 'border-b border-gray-300' : ''}`}>
+                    <span className="font-bold text-gray-600">{item.num}.</span>
+                    <span className="ml-1">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ② 頻度 */}
+            <div className="flex-1">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+                ②週に何回
+              </h2>
+              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+                {['1回', '2回', '3回', '4回', '5回', '6回', '7回（毎日）'].map((item, idx) => (
+                  <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 6 ? 'border-b border-gray-300' : ''}`}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ③ サイズ・飲み方 */}
+            <div className="flex-1">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+                ③サイズ/飲み方
+              </h2>
+              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+                {[
+                  { num: 1, name: '350ml缶' },
+                  { num: 2, name: '500ml缶' },
+                  { num: 3, name: '750mlビン' },
+                  { num: 4, name: '375mlビン' },
+                  { num: 5, name: 'コップ' },
+                  { num: 6, name: '水割り' },
+                  { num: 7, name: 'お湯割り' },
+                  { num: 8, name: 'ロック' },
+                  { num: 9, name: '小ジョッキ' },
+                  { num: 10, name: '中ジョッキ' },
+                  { num: 11, name: '大ジョッキ' }
+                ].map((item, idx) => (
+                  <div key={idx} className={`px-3 py-2 text-sm ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 10 ? 'border-b border-gray-300' : ''}`}>
+                    <span className="font-bold text-gray-600">{item.num}.</span>
+                    <span className="ml-1">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ④ 数量 */}
+            <div className="flex-1">
+              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center rounded-t whitespace-nowrap">
+                ④数量
+              </h2>
+              <div className="border-2 border-gray-700 border-t-0 rounded-b">
+                {['1', '2', '3', '4', '5', '6以上'].map((item, idx) => (
+                  <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 5 ? 'border-b border-gray-300' : ''}`}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* 記入例 */}
+          <div className="mt-10 p-5 bg-blue-50 rounded-lg border-2 border-blue-300">
+            <h3 className="font-bold text-blue-800 text-lg mb-3">【記入例】</h3>
+            <div className="text-base text-blue-900 space-y-2">
+              <p>・「<span className="font-bold">ビール</span>」を週に「<span className="font-bold">3回</span>」、「<span className="font-bold">500ml缶</span>」を「<span className="font-bold">2</span>」程度</p>
+              <p>・「<span className="font-bold">焼酎</span>」を週に「<span className="font-bold">5回</span>」、「<span className="font-bold">水割り</span>」を「<span className="font-bold">3</span>」程度</p>
+              <p>・「<span className="font-bold">ワイン</span>」を週に「<span className="font-bold">2回</span>」、「<span className="font-bold">750mlビン</span>」を「<span className="font-bold">1</span>」程度</p>
+            </div>
+          </div>
+
+          {/* フッター */}
+          <div className="absolute bottom-8 left-0 right-0 text-center text-sm text-gray-500">
+            - 2 / 2 -
+          </div>
+
+        </div>
+
       </div>
     </div>
   );
