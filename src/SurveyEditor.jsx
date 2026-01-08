@@ -929,83 +929,99 @@ const SurveyEditor = () => {
           <div className="flex justify-between gap-4 px-1" style={{ minHeight: '45%' }}>
             
             {/* ① お酒の種類 */}
-            <div className="flex-1 border-2 border-gray-700 rounded">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
+            <div className="flex-1">
+              <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ①お酒の種類
-              </h2>
-              <div>
-                {[
-                  { num: 1, name: 'ビール' },
-                  { num: 2, name: '日本酒' },
-                  { num: 3, name: '焼酎' },
-                  { num: 4, name: 'チューハイ' },
-                  { num: 5, name: 'ワイン' },
-                  { num: 6, name: 'ウイスキー' },
-                  { num: 7, name: 'ブランデー' },
-                  { num: 8, name: '梅酒' },
-                  { num: 9, name: '泡盛' }
-                ].map((item, idx) => (
-                  <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 8 ? 'border-b border-gray-300' : ''}`}>
-                    <span className="font-bold text-gray-600">{item.num}.</span>
-                    <span className="ml-1">{item.name}</span>
-                  </div>
-                ))}
               </div>
+              <table className="w-full border-collapse">
+                <tbody>
+                  {[
+                    { num: 1, name: 'ビール' },
+                    { num: 2, name: '日本酒' },
+                    { num: 3, name: '焼酎' },
+                    { num: 4, name: 'チューハイ' },
+                    { num: 5, name: 'ワイン' },
+                    { num: 6, name: 'ウイスキー' },
+                    { num: 7, name: 'ブランデー' },
+                    { num: 8, name: '梅酒' },
+                    { num: 9, name: '泡盛' }
+                  ].map((item, idx) => (
+                    <tr key={idx}>
+                      <td className={`px-3 py-2 text-base border border-gray-400 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                        <span className="font-bold text-gray-600">{item.num}.</span>
+                        <span className="ml-1">{item.name}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             {/* ② 頻度 */}
-            <div className="flex-1 border-2 border-gray-700 rounded">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
+            <div className="flex-1">
+              <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ②週に何回
-              </h2>
-              <div>
-                {['1回', '2回', '3回', '4回', '5回', '6回', '7回（毎日）'].map((item, idx) => (
-                  <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 6 ? 'border-b border-gray-300' : ''}`}>
-                    {item}
-                  </div>
-                ))}
               </div>
+              <table className="w-full border-collapse">
+                <tbody>
+                  {['1回', '2回', '3回', '4回', '5回', '6回', '7回（毎日）'].map((item, idx) => (
+                    <tr key={idx}>
+                      <td className={`px-3 py-2 text-base border border-gray-400 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                        {item}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             {/* ③ サイズ・飲み方 */}
-            <div className="flex-1 border-2 border-gray-700 rounded">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
+            <div className="flex-1">
+              <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ③サイズ/飲み方
-              </h2>
-              <div>
-                {[
-                  { num: 1, name: '350ml缶' },
-                  { num: 2, name: '500ml缶' },
-                  { num: 3, name: '750mlビン' },
-                  { num: 4, name: '375mlビン' },
-                  { num: 5, name: 'コップ' },
-                  { num: 6, name: '水割り' },
-                  { num: 7, name: 'お湯割り' },
-                  { num: 8, name: 'ロック' },
-                  { num: 9, name: '小ジョッキ' },
-                  { num: 10, name: '中ジョッキ' },
-                  { num: 11, name: '大ジョッキ' }
-                ].map((item, idx) => (
-                  <div key={idx} className={`px-3 py-2 text-sm ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 10 ? 'border-b border-gray-300' : ''}`}>
-                    <span className="font-bold text-gray-600">{item.num}.</span>
-                    <span className="ml-1">{item.name}</span>
-                  </div>
-                ))}
               </div>
+              <table className="w-full border-collapse">
+                <tbody>
+                  {[
+                    { num: 1, name: '350ml缶' },
+                    { num: 2, name: '500ml缶' },
+                    { num: 3, name: '750mlビン' },
+                    { num: 4, name: '375mlビン' },
+                    { num: 5, name: 'コップ' },
+                    { num: 6, name: '水割り' },
+                    { num: 7, name: 'お湯割り' },
+                    { num: 8, name: 'ロック' },
+                    { num: 9, name: '小ジョッキ' },
+                    { num: 10, name: '中ジョッキ' },
+                    { num: 11, name: '大ジョッキ' }
+                  ].map((item, idx) => (
+                    <tr key={idx}>
+                      <td className={`px-3 py-2 text-sm border border-gray-400 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                        <span className="font-bold text-gray-600">{item.num}.</span>
+                        <span className="ml-1">{item.name}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             {/* ④ 数量 */}
-            <div className="flex-1 border-2 border-gray-700 rounded">
-              <h2 className="text-sm font-bold bg-gray-700 text-white px-2 py-2 text-center whitespace-nowrap">
+            <div className="flex-1">
+              <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ④数量
-              </h2>
-              <div>
-                {['1', '2', '3', '4', '5', '6以上'].map((item, idx) => (
-                  <div key={idx} className={`px-3 py-2 text-base ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${idx < 5 ? 'border-b border-gray-300' : ''}`}>
-                    {item}
-                  </div>
-                ))}
               </div>
+              <table className="w-full border-collapse">
+                <tbody>
+                  {['1', '2', '3', '4', '5', '6以上'].map((item, idx) => (
+                    <tr key={idx}>
+                      <td className={`px-3 py-2 text-base border border-gray-400 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                        {item}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
           </div>
