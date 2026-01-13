@@ -896,11 +896,13 @@ const SurveyEditor = () => {
                 <div className="w-8 h-6 border-b border-gray-500"></div>
               </div>
             </div>
-            <div className="flex items-start">
+            <div className="flex items-start mb-1">
               <span className="w-20 font-bold">質問15</span>
-              <div>
-                <span>その他、HbA1c数値などコメントありましたら裏面に自由にご記入願います。</span>
-              </div>
+              <span>その他、コメント欄（例　HbA1c　4.9　2025.9.26）</span>
+            </div>
+            <div className="flex">
+              <div className="w-20"></div>
+              <div className="flex-1 border border-gray-500 min-h-[50px] mr-28"></div>
             </div>
 
             {/* QRコード */}
@@ -915,7 +917,7 @@ const SurveyEditor = () => {
             )}
           </div>
 
-          <div className="text-center mt-4 text-base font-medium">
+          <div className="text-center mt-3 text-base font-medium">
             ご協力ありがとうございました。
           </div>
 
@@ -1030,15 +1032,6 @@ const SurveyEditor = () => {
               </table>
             </div>
 
-          </div>
-
-          {/* 医師記入欄 */}
-          <div className="mt-8 border-2 border-gray-700">
-            <div className="px-4 py-2">
-              <p className="font-bold text-base mb-2">医師記入欄</p>
-              <p className="text-sm text-gray-600 mb-3">　　例）HbA1c 4.9　　2025.10.23</p>
-              <div className="min-h-[80px]"></div>
-            </div>
           </div>
 
           {/* フッター */}
