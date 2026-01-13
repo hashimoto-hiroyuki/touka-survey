@@ -1032,6 +1032,15 @@ const SurveyEditor = () => {
 
           </div>
 
+          {/* 医師記入欄 */}
+          <div className="mt-8 border-2 border-gray-700">
+            <div className="px-4 py-2">
+              <p className="font-bold text-base mb-2">医師記入欄</p>
+              <p className="text-sm text-gray-600 mb-3">　　例）HbA1c 4.9　　2025.10.23</p>
+              <div className="min-h-[80px]"></div>
+            </div>
+          </div>
+
           {/* フッター */}
           <div className="absolute bottom-8 left-0 right-0 text-center text-sm text-gray-500">
             - 2 / 2 -
