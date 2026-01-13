@@ -881,13 +881,19 @@ const SurveyEditor = () => {
           {/* 医師入力欄 */}
           <div className="relative">
             <p className="font-bold text-lg mb-1">【医師入力欄】</p>
-            <div className="flex items-end mb-1">
+            <div className="flex items-center mb-1">
               <span className="w-20 font-bold">質問14</span>
               <span>歯の抜去位置を記入してください。</span>
-              <div className="ml-4 flex gap-2">
-                <div className="w-8 h-8 border border-gray-500"></div>
-                <div className="w-8 h-8 border border-gray-500"></div>
-                <div className="w-8 h-8 border border-gray-500"></div>
+              <div className="ml-4 flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  <span className="text-sm">□右</span>
+                  <span className="text-sm">□左</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="text-sm">□上</span>
+                  <span className="text-sm">□下</span>
+                </div>
+                <div className="w-8 h-6 border-b border-gray-500"></div>
               </div>
             </div>
             <div className="flex items-start">
