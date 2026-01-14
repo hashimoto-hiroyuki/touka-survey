@@ -403,7 +403,7 @@ const SurveyEditor = () => {
                 <ul className="text-xs text-green-700 space-y-0.5 mb-2">
                   <li>• 「印刷/PDF保存」ボタンでQRコード付きアンケートを印刷できます</li>
                   <li>• スマートフォンでQRコードをスキャンするとフォームが開きます</li>
-                  <li>• 下記URLをクリックするとPC上でフォームが開きます</li>
+                  <li>• 下記URLをクリックするとフォームが開きます</li>
                 </ul>
                 {/* 生成URL表示 */}
                 <div className="flex items-center gap-2">
