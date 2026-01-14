@@ -319,10 +319,10 @@ const SurveyEditor = () => {
           )}
 
           {/* メイン入力エリア */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+          <div className="mb-4">
             
             {/* 医療機関選択 */}
-            <div className="lg:col-span-2">
+            <div>
               <label className="block text-xs font-bold text-gray-500 mb-1 flex items-center gap-2">
                 医療機関名を選択
                 <button
@@ -401,47 +401,6 @@ const SurveyEditor = () => {
                 />
               </div>
             </div>
-
-            {/* 生成URL表示 */}
-            <div>
-              <label className="block text-xs font-bold text-gray-500 mb-1 flex items-center gap-1">
-                <Link className="w-3 h-3" />
-                生成されたフォームURL
-              </label>
-              <div className="flex gap-1">
-                <input
-                  type="text"
-                  value={prefilledFormUrl}
-                  readOnly
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg bg-gray-50 text-sm text-gray-600 truncate"
-                  placeholder="医療機関を選択してください"
-                />
-                {prefilledFormUrl && (
-                  <>
-                    <button
-                      onClick={copyUrl}
-                      className={`px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1 ${
-                        copied 
-                          ? 'bg-green-100 text-green-700' 
-                          : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
-                      }`}
-                    >
-                      {copied ? <CheckCircle className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                      {copied ? 'コピー済' : 'コピー'}
-                    </button>
-                    <a
-                      href={prefilledFormUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-xs font-medium transition-colors flex items-center"
-                      title="フォームを開く"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </>
-                )}
-              </div>
-            </div>
           </div>
 
           {/* QRコードプレビュー */}
@@ -456,9 +415,34 @@ const SurveyEditor = () => {
                 <p className="text-sm font-bold text-green-800">
                   ✓ 「{clinicName}」のQRコードが生成されました
                 </p>
-                <p className="text-xs text-green-600 mt-1">
+                <p className="text-xs text-green-600 mt-1 mb-2">
                   このQRコードをスキャンすると、医療機関名が自動入力されたフォームが開きます
                 </p>
+                {/* 生成URL表示 */}
+                <div className="flex items-center gap-2">
+                  <a
+                    href={prefilledFormUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 px-3 py-1.5 bg-white border border-green-300 rounded text-xs text-green-700 hover:bg-green-100 hover:border-green-400 transition-colors truncate flex items-center gap-1"
+                    title="クリックしてフォームを開く"
+                  >
+                    <Link className="w-3 h-3 shrink-0" />
+                    <span className="truncate">{prefilledFormUrl}</span>
+                    <ExternalLink className="w-3 h-3 shrink-0 ml-auto" />
+                  </a>
+                  <button
+                    onClick={copyUrl}
+                    className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1 ${
+                      copied 
+                        ? 'bg-green-200 text-green-800' 
+                        : 'bg-white border border-green-300 hover:bg-green-100 text-green-700'
+                    }`}
+                  >
+                    {copied ? <CheckCircle className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    {copied ? 'コピー済' : 'コピー'}
+                  </button>
+                </div>
               </div>
             </div>
           )}
