@@ -412,12 +412,14 @@ const SurveyEditor = () => {
                 className="w-16 h-16"
               />
               <div className="flex-1">
-                <p className="text-sm font-bold text-green-800">
+                <p className="text-sm font-bold text-green-800 mb-1">
                   ✓ 「{clinicName}」のQRコードが生成されました
                 </p>
-                <p className="text-xs text-green-600 mt-1 mb-2">
-                  このQRコードをスキャンすると、医療機関名が自動入力されたフォームが開きます
-                </p>
+                <ul className="text-xs text-green-700 space-y-0.5 mb-2">
+                  <li>• 「印刷/PDF保存」ボタンでQRコード付きアンケートを印刷できます</li>
+                  <li>• スマートフォンでQRコードをスキャンするとフォームが開きます</li>
+                  <li>• 下記URLをクリックするとPC上でフォームが開きます</li>
+                </ul>
                 {/* 生成URL表示 */}
                 <div className="flex items-center gap-2">
                   <a
