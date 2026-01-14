@@ -384,21 +384,6 @@ const SurveyEditor = () => {
                     </div>
                   )}
                 </div>
-
-                {/* または手入力 */}
-                <span className="self-center text-gray-400 text-sm px-1">または</span>
-                <input
-                  type="text"
-                  value={customHospital}
-                  onChange={(e) => { setCustomHospital(e.target.value); setUseCustom(true); }}
-                  onFocus={() => setUseCustom(true)}
-                  className={`flex-1 min-w-[200px] px-3 py-2.5 border rounded-lg outline-none text-sm transition-colors ${
-                    useCustom && customHospital 
-                      ? 'border-blue-500 bg-blue-50' 
-                      : 'border-gray-300 focus:border-blue-400'
-                  }`}
-                  placeholder="手入力（※フォームに存在する名前のみ有効）"
-                />
               </div>
             </div>
           </div>
