@@ -643,7 +643,7 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          <p className="text-sm mb-2 font-medium">※はっきりと読みやすい文字でお書きくださいますようお願いします。</p>
+          <p className="text-sm mb-2 font-medium">はっきりと読みやすい文字でお書きくださいますようお願いします。</p>
 
           {/* 基本情報入力欄 */}
           <div className="mb-3 space-y-1">
@@ -700,7 +700,7 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          <p className="text-sm font-bold mb-1">※以下、□を黒く■塗りつぶしてください。</p>
+          <p className="text-sm font-bold mb-1">以下、□を黒く■塗りつぶしてください。</p>
           
           {/* 中盤の質問テーブル */}
           <table className="w-full text-base mb-2 border-collapse">
@@ -803,7 +803,7 @@ const SurveyEditor = () => {
 
           {/* アルコール */}
           <div className="mb-2">
-            <p className="text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">※別紙の選択肢一覧をご参照ください</span></p>
+            <p className="text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">別紙の選択肢一覧をご参照ください</span></p>
             
             <div className="ml-6">
               <div className="flex items-center mb-0.5 font-bold">
@@ -878,7 +878,7 @@ const SurveyEditor = () => {
           <div className="relative">
             <p className="font-bold text-lg mb-1">【医師入力欄】</p>
             <div className="flex items-center mb-1">
-              <span className="w-20">質問14</span>
+              <span className="w-20 text-lg">質問14</span>
               <span>歯の抜去位置を記入してください。</span>
               <div className="ml-4 flex items-center gap-3">
                 <div className="flex items-center gap-1">
@@ -893,7 +893,7 @@ const SurveyEditor = () => {
               </div>
             </div>
             <div className="flex items-start mb-1">
-              <span className="w-20">質問15</span>
+              <span className="w-20 text-lg">質問15</span>
               <span>その他、コメント欄（例　HbA1c　4.9　2025.9.26）</span>
             </div>
             <div className="flex">
