@@ -401,9 +401,9 @@ const SurveyEditor = () => {
                   ✓ 「{clinicName}」のQRコードが生成されました
                 </p>
                 <ul className="text-xs text-green-700 space-y-0.5 mb-2">
-                  <li><span className="font-bold">【印刷】</span>「印刷/PDF保存」ボタンでQRコード付きアンケートを印刷できます</li>
-                  <li><span className="font-bold">【QRコード】</span>スマートフォンでQRコードをスキャンするとフォームが開きます</li>
-                  <li><span className="font-bold">【フォームを開く】</span>下記URLをクリックするとフォームが開きます</li>
+                  <li className="flex"><span className="font-bold w-28 shrink-0">【印刷】</span><span>「印刷/PDF保存」ボタンでQRコード付きアンケートを印刷できます</span></li>
+                  <li className="flex"><span className="font-bold w-28 shrink-0">【QRコード】</span><span>スマートフォンでQRコードをスキャンするとフォームが開きます</span></li>
+                  <li className="flex"><span className="font-bold w-28 shrink-0">【フォームを開く】</span><span>下記URLをクリックするとフォームが開きます</span></li>
                 </ul>
                 {/* 生成URL表示 */}
                 <div className="flex items-center gap-2">
