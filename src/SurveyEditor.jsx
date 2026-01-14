@@ -418,7 +418,7 @@ const SurveyEditor = () => {
                 <ul className="text-xs text-green-700 space-y-0.5 mb-2">
                   <li>• 「印刷/PDF保存」ボタンでQRコード付きアンケートを印刷できます</li>
                   <li>• スマートフォンでQRコードをスキャンするとフォームが開きます</li>
-                  <li>• 下記URLをクリックするとフォームが開きます</li>
+                  <li>• 下記URLをクリックするとPC上でフォームが開きます</li>
                 </ul>
                 {/* 生成URL表示 */}
                 <div className="flex items-center gap-2">
@@ -426,12 +426,12 @@ const SurveyEditor = () => {
                     href={prefilledFormUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-3 py-1.5 bg-white border border-green-300 rounded text-xs text-green-700 hover:bg-green-100 hover:border-green-400 transition-colors truncate flex items-center gap-1"
+                    className="max-w-xs px-3 py-1.5 bg-white border border-green-300 rounded text-xs text-green-700 hover:bg-green-100 hover:border-green-400 transition-colors truncate flex items-center gap-1"
                     title="クリックしてフォームを開く"
                   >
                     <Link className="w-3 h-3 shrink-0" />
                     <span className="truncate">{prefilledFormUrl}</span>
-                    <ExternalLink className="w-3 h-3 shrink-0 ml-auto" />
+                    <ExternalLink className="w-3 h-3 shrink-0" />
                   </a>
                   <button
                     onClick={copyUrl}
