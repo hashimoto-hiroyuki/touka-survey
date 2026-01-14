@@ -652,16 +652,16 @@ const SurveyEditor = () => {
           {/* 基本情報入力欄 */}
           <div className="mb-3 space-y-1">
             <div className="flex items-end py-0.5">
-              <span className="w-20 font-bold text-lg">質問１</span>
-              <span className="mr-3">名前（カタカナ）氏</span>
+              <span className="w-20 text-lg">質問１</span>
+              <span className="mr-3 font-bold">名前（カタカナ）</span><span className="mr-3">氏</span>
               <div className="flex-1 border-b border-gray-400 mx-2 min-h-[1.5em]"></div>
               <span className="mr-3">名</span>
               <div className="flex-1 border-b border-gray-400 mx-2 min-h-[1.5em]"></div>
             </div>
 
             <div className="flex items-end py-0.5">
-              <span className="w-20 font-bold text-lg">質問２</span>
-              <span className="mr-4">生年月日</span>
+              <span className="w-20 text-lg">質問２</span>
+              <span className="mr-4 font-bold">生年月日</span>
               <span className="mr-2">昭和・平成・令和</span>
               <span className="w-16 border-b border-gray-400 mx-1 text-center"></span>
               <span>年</span>
@@ -672,8 +672,8 @@ const SurveyEditor = () => {
             </div>
 
             <div className="flex items-end py-0.5">
-              <span className="w-20 font-bold text-lg">質問３</span>
-              <span className="mr-4">性別</span>
+              <span className="w-20 text-lg">質問３</span>
+              <span className="mr-4 font-bold">性別</span>
               <div className="flex gap-8">
                 <label className="flex items-center gap-1"><span>□</span> 男</label>
                 <label className="flex items-center gap-1"><span>□</span> 女</label>
@@ -682,8 +682,8 @@ const SurveyEditor = () => {
             </div>
 
             <div className="flex items-end py-0.5">
-              <span className="w-20 font-bold text-lg">質問４</span>
-              <span className="mr-4">血液型</span>
+              <span className="w-20 text-lg">質問４</span>
+              <span className="mr-4 font-bold">血液型</span>
               <div className="flex gap-6">
                 <label className="flex items-center gap-1"><span>□</span> A型</label>
                 <label className="flex items-center gap-1"><span>□</span> B型</label>
@@ -694,11 +694,11 @@ const SurveyEditor = () => {
             </div>
 
             <div className="flex items-end py-0.5">
-              <span className="w-20 font-bold text-lg">質問５</span>
-              <span className="mr-4">身長</span>
+              <span className="w-20 text-lg">質問５</span>
+              <span className="mr-4 font-bold">身長</span>
               <span className="w-32 border-b border-gray-400 mx-2"></span>
               <span>cm</span>
-              <span className="ml-10 mr-4">体重</span>
+              <span className="ml-10 mr-4 font-bold">体重</span>
               <span className="w-32 border-b border-gray-400 mx-2"></span>
               <span>kg</span>
             </div>
@@ -710,7 +710,7 @@ const SurveyEditor = () => {
           <table className="w-full text-base mb-2 border-collapse">
             <tbody>
               <tr>
-                <td className="py-1 w-20 align-top font-bold text-lg">質問６</td>
+                <td className="py-1 w-20 align-top text-lg">質問６</td>
                 <td className="py-1 w-28 align-top font-medium">糖尿病</td>
                 <td className="py-1">
                   <div className="flex flex-wrap gap-x-5 gap-y-1">
@@ -723,7 +723,7 @@ const SurveyEditor = () => {
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問７</td>
+                <td className="py-1 align-top text-lg">質問７</td>
                 <td className="py-1 align-top font-medium">脂質異常症</td>
                 <td className="py-1">
                   <div className="flex flex-wrap gap-x-5 gap-y-1">
@@ -736,7 +736,7 @@ const SurveyEditor = () => {
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問８</td>
+                <td className="py-1 align-top text-lg">質問８</td>
                 <td className="py-1" colSpan="2">
                   <div className="flex justify-between w-full max-w-2xl">
                     <span className="font-medium">兄弟に糖尿病歴はありますか？</span>
@@ -749,7 +749,7 @@ const SurveyEditor = () => {
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問９</td>
+                <td className="py-1 align-top text-lg">質問９</td>
                 <td className="py-1" colSpan="2">
                   <div className="flex justify-between w-full max-w-2xl">
                     <span className="font-medium">両親に糖尿病歴はありますか？</span>
@@ -762,7 +762,7 @@ const SurveyEditor = () => {
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問10</td>
+                <td className="py-1 align-top text-lg">質問10</td>
                 <td className="py-1" colSpan="2">
                   <div className="flex justify-between w-full max-w-lg">
                     <span className="font-medium">ほとんど運動しない</span>
@@ -774,7 +774,7 @@ const SurveyEditor = () => {
                 </td>
               </tr>
               <tr>
-                <td className="py-1 align-top font-bold text-lg">質問11</td>
+                <td className="py-1 align-top text-lg">質問11</td>
                 <td className="py-1" colSpan="2">
                   <div className="mb-0.5 font-medium">お菓子、スイーツなどを週何回食べますか</div>
                   <div className="flex gap-8 ml-8">
@@ -789,7 +789,7 @@ const SurveyEditor = () => {
 
           {/* 飲み物 */}
           <div className="mb-2">
-            <p className="font-bold text-lg mb-0.5">質問12　最もよく飲む飲み物は何ですか？</p>
+            <p className="text-lg mb-0.5">質問12　最もよく飲む飲み物は何ですか？</p>
             <div className="ml-8 space-y-0.5">
               <div className="flex items-start">
                 <span className="mr-2 mt-0.5">□</span>
@@ -807,7 +807,7 @@ const SurveyEditor = () => {
 
           {/* アルコール */}
           <div className="mb-2">
-            <p className="font-bold text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">※別紙の選択肢一覧をご参照ください</span></p>
+            <p className="text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">※別紙の選択肢一覧をご参照ください</span></p>
             
             <div className="ml-6">
               <div className="flex items-center mb-0.5 font-bold">
@@ -882,7 +882,7 @@ const SurveyEditor = () => {
           <div className="relative">
             <p className="font-bold text-lg mb-1">【医師入力欄】</p>
             <div className="flex items-center mb-1">
-              <span className="w-20 font-bold">質問14</span>
+              <span className="w-20">質問14</span>
               <span>歯の抜去位置を記入してください。</span>
               <div className="ml-4 flex items-center gap-3">
                 <div className="flex items-center gap-1">
@@ -897,7 +897,7 @@ const SurveyEditor = () => {
               </div>
             </div>
             <div className="flex items-start mb-1">
-              <span className="w-20 font-bold">質問15</span>
+              <span className="w-20">質問15</span>
               <span>その他、コメント欄（例　HbA1c　4.9　2025.9.26）</span>
             </div>
             <div className="flex">
