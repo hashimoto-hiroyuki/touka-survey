@@ -643,8 +643,6 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          <p className="text-sm mb-2 font-medium">はっきりと読みやすい文字でお書きくださいますようお願いします。</p>
-
           {/* 基本情報入力欄 */}
           <div className="mb-3 space-y-1">
             <div className="flex items-end py-0.5">
@@ -700,8 +698,6 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          <p className="text-sm font-bold mb-1">以下、□を黒く■塗りつぶしてください。</p>
-          
           {/* 中盤の質問テーブル */}
           <table className="w-full text-base mb-2 border-collapse">
             <tbody>
