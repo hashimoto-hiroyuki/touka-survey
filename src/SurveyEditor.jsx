@@ -403,8 +403,8 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          {/* QRコードプレビュー */}
-          {clinicName && qrCodeDisplayUrl && (
+          {/* QRコードプレビュー または 案内メッセージ */}
+          {clinicName && qrCodeDisplayUrl ? (
             <div className="flex items-center gap-4 p-3 bg-green-50 rounded-lg border border-green-200">
               <img 
                 src={generateQRCode(qrCodeDisplayUrl, 80)} 
@@ -444,6 +444,31 @@ const SurveyEditor = () => {
                     {copied ? <CheckCircle className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                     {copied ? 'コピー済' : 'コピー'}
                   </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 border-dashed">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-blue-100 rounded-full">
+                  <Edit3 className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-blue-800 mb-1">
+                    医療機関名を選択してください
+                  </p>
+                  <p className="text-xs text-blue-600 mb-2">
+                    上のリストから医療機関を選ぶと、QRコード付きアンケート用紙が自動生成されます。
+                    <br />
+                    <span className="text-blue-500">※リストにない場合は「設定」ボタンから追加できます。</span>
+                  </p>
+                  <div className="flex flex-wrap gap-2 text-xs text-blue-500">
+                    <span className="px-2 py-1 bg-white rounded border border-blue-200">① 医療機関を選択</span>
+                    <span className="text-blue-400">→</span>
+                    <span className="px-2 py-1 bg-white rounded border border-blue-200">② QRコード生成</span>
+                    <span className="text-blue-400">→</span>
+                    <span className="px-2 py-1 bg-white rounded border border-blue-200">③ 印刷 or スキャン</span>
+                  </div>
                 </div>
               </div>
             </div>
