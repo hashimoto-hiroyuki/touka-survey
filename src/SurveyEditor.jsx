@@ -474,10 +474,18 @@ const SurveyEditor = () => {
           {/* 設定パネル */}
           {showSettings && (
             <div className="mt-4 bg-gray-50 rounded-lg p-4 border border-gray-200 space-y-4">
-              <h3 className="font-bold text-gray-700 flex items-center gap-2">
-                <Settings className="w-4 h-4" />
-                詳細設定
-              </h3>
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-gray-700 flex items-center gap-2">
+                  <Settings className="w-4 h-4" />
+                  詳細設定
+                </h3>
+                <button
+                  onClick={() => setShowSettings(false)}
+                  className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm transition-colors"
+                >
+                  保存
+                </button>
+              </div>
               
               {/* 医療機関リスト管理 - 幅を半分に */}
               <div className="max-w-md">
@@ -592,16 +600,6 @@ const SurveyEditor = () => {
                 <p className="text-xs text-gray-400 mt-2">
                   ※ 追加・編集・削除すると、スプレッドシートとGoogleフォームの選択肢も自動更新されます
                 </p>
-              </div>
-              
-              {/* OKボタン */}
-              <div className="flex justify-end pt-2 border-t border-gray-200">
-                <button
-                  onClick={() => setShowSettings(false)}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
-                >
-                  OK
-                </button>
               </div>
             </div>
           )}
