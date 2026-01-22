@@ -294,8 +294,8 @@ const SurveyEditor = () => {
                   showSettings ? 'bg-gray-700 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                 }`}
               >
-                <Settings className="w-4 h-4" />
-                設定
+                <Plus className="w-4 h-4" />
+                リスト追加
               </button>
               <button
                 onClick={handlePrint}
@@ -387,14 +387,12 @@ const SurveyEditor = () => {
                   <p className="text-xs text-blue-600 mb-2">
                     下のリストから医療機関を選ぶと、QRコード付きアンケート用紙が自動生成されます。
                     <br />
-                    <span className="text-blue-500">※リストにない場合は上部の「設定」ボタンから追加できます。</span>
+                    <span className="text-blue-500">※リストにない場合は上部の「リスト追加」ボタンから追加できます。</span>
                   </p>
                   <div className="flex flex-wrap gap-1.5 text-xs text-blue-500">
-                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">① 選択</span>
+                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">① 選択またはリスト追加</span>
                     <span className="text-blue-400">→</span>
-                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">② QR生成</span>
-                    <span className="text-blue-400">→</span>
-                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">③ 印刷</span>
+                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">② 印刷</span>
                   </div>
                 </div>
               </div>
