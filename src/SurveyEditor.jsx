@@ -299,9 +299,9 @@ const SurveyEditor = () => {
               </button>
               <button
                 onClick={handlePrint}
-                disabled={!clinicName}
+                disabled={!clinicName || showSettings}
                 className={`px-6 py-2.5 rounded shadow flex items-center gap-2 font-bold transition-colors ${
-                  clinicName 
+                  clinicName && !showSettings
                     ? 'bg-blue-600 hover:bg-blue-700 text-white' 
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
@@ -592,6 +592,16 @@ const SurveyEditor = () => {
                 <p className="text-xs text-gray-400 mt-2">
                   ※ 追加・編集・削除すると、スプレッドシートとGoogleフォームの選択肢も自動更新されます
                 </p>
+              </div>
+              
+              {/* OKボタン */}
+              <div className="flex justify-end pt-2 border-t border-gray-200">
+                <button
+                  onClick={() => setShowSettings(false)}
+                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                >
+                  OK
+                </button>
               </div>
             </div>
           )}
