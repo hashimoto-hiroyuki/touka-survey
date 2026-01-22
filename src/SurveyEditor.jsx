@@ -31,6 +31,7 @@ const SurveyEditor = () => {
   
   const printRef = useRef();
   const dropdownRef = useRef();
+  const newHospitalInputRef = useRef(); // 追加: 入力フィールドへの参照
 
   // 現在の医療機関名
   const clinicName = useCustom ? customHospital : selectedHospital;
@@ -121,6 +122,17 @@ const SurveyEditor = () => {
       setError('サーバーに接続できません: ' + err.message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // 追加ボタンクリック時の処理（改善版）
+  const handleAddClick = () => {
+    if (!newHospital.trim()) {
+      // 空の場合は入力フィールドにフォーカス
+      newHospitalInputRef.current?.focus();
+    } else {
+      // 入力済みなら追加実行
+      addHospital();
     }
   };
 
@@ -493,8 +505,8 @@ const SurveyEditor = () => {
                 </div>
               </div>
 
-              {/* 医療機関リスト管理 */}
-              <div>
+              {/* 医療機関リスト管理 - 幅を半分に */}
+              <div className="max-w-md">
                 <label className="block text-xs font-bold text-gray-500 mb-2 flex items-center gap-2">
                   医療機関リスト管理（スプレッドシート連携）
                   <button
@@ -510,21 +522,22 @@ const SurveyEditor = () => {
                 {/* 追加フォーム */}
                 <div className="flex gap-2 mb-3">
                   <input
+                    ref={newHospitalInputRef}
                     type="text"
                     value={newHospital}
                     onChange={(e) => setNewHospital(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && !isLoading && addHospital()}
+                    onKeyDown={(e) => e.key === 'Enter' && !isLoading && newHospital.trim() && addHospital()}
                     disabled={isLoading}
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm disabled:bg-gray-100"
                     placeholder="新しい医療機関名を入力..."
                   />
                   <button
-                    onClick={addHospital}
-                    disabled={!newHospital.trim() || isLoading}
+                    onClick={handleAddClick}
+                    disabled={isLoading}
                     className={`px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-1 transition-colors ${
-                      newHospital.trim() && !isLoading
-                        ? 'bg-green-600 hover:bg-green-700 text-white'
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      isLoading
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        : 'bg-green-600 hover:bg-green-700 text-white'
                     }`}
                   >
                     {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
@@ -534,7 +547,7 @@ const SurveyEditor = () => {
                 
                 {/* リスト表示 */}
                 {hospitalList.length > 0 ? (
-                  <div className="space-y-2 max-h-60 overflow-y-auto">
+                  <div className="space-y-2 max-h-48 overflow-y-auto">
                     {hospitalList.map((name, idx) => (
                       <div
                         key={idx}
@@ -571,7 +584,7 @@ const SurveyEditor = () => {
                           </>
                         ) : (
                           <>
-                            <span className="flex-1 text-sm">{name}</span>
+                            <span className="flex-1 text-sm truncate">{name}</span>
                             <button
                               onClick={() => {
                                 setEditingHospital(name);
