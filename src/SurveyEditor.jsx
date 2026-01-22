@@ -330,6 +330,77 @@ const SurveyEditor = () => {
             </div>
           )}
 
+          {/* QRコードプレビュー または 案内メッセージ */}
+          {clinicName && qrCodeDisplayUrl ? (
+            <div className="flex items-center gap-4 p-3 bg-green-50 rounded-lg border border-green-200 mb-4">
+              <img 
+                src={generateQRCode(qrCodeDisplayUrl, 80)} 
+                alt="QR Preview" 
+                className="w-16 h-16"
+              />
+              <div className="flex-1">
+                <p className="text-sm font-bold text-green-800 mb-1">
+                  ✓ 「{clinicName}」のQRコードが生成されました
+                </p>
+                <ul className="text-xs text-green-700 space-y-0.5 mb-2">
+                  <li className="flex"><span className="font-bold w-28 shrink-0">【印刷】</span><span>「印刷/PDF保存」ボタンでQRコード付きアンケートを印刷できます</span></li>
+                  <li className="flex"><span className="font-bold w-28 shrink-0">【QRコード】</span><span>スマートフォンでQRコードをスキャンするとフォームが開きます</span></li>
+                  <li className="flex"><span className="font-bold w-28 shrink-0">【フォームを開く】</span><span>下記URLをクリックするとフォームが開きます</span></li>
+                </ul>
+                {/* 生成URL表示 */}
+                <div className="flex items-center gap-2">
+                  <a
+                    href={prefilledFormUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="max-w-xs px-3 py-1.5 bg-white border border-green-300 rounded text-xs text-green-700 hover:bg-green-100 hover:border-green-400 transition-colors truncate flex items-center gap-1"
+                    title="クリックしてフォームを開く"
+                  >
+                    <Link className="w-3 h-3 shrink-0" />
+                    <span className="truncate">{prefilledFormUrl}</span>
+                    <ExternalLink className="w-3 h-3 shrink-0" />
+                  </a>
+                  <button
+                    onClick={copyUrl}
+                    className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1 ${
+                      copied 
+                        ? 'bg-green-200 text-green-800' 
+                        : 'bg-white border border-green-300 hover:bg-green-100 text-green-700'
+                    }`}
+                  >
+                    {copied ? <CheckCircle className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    {copied ? 'コピー済' : 'コピー'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 border-dashed mb-4 max-w-lg">
+              <div className="flex items-start gap-2">
+                <div className="p-1.5 bg-blue-100 rounded-full">
+                  <Edit3 className="w-4 h-4 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-blue-800 mb-1">
+                    医療機関名を選択してください
+                  </p>
+                  <p className="text-xs text-blue-600 mb-2">
+                    下のリストから医療機関を選ぶと、QRコード付きアンケート用紙が自動生成されます。
+                    <br />
+                    <span className="text-blue-500">※リストにない場合は上部の「設定」ボタンから追加できます。</span>
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 text-xs text-blue-500">
+                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">① 選択</span>
+                    <span className="text-blue-400">→</span>
+                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">② QR生成</span>
+                    <span className="text-blue-400">→</span>
+                    <span className="px-1.5 py-0.5 bg-white rounded border border-blue-200">③ 印刷</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* メイン入力エリア */}
           <div className="mb-4">
             
@@ -346,9 +417,9 @@ const SurveyEditor = () => {
                   <RefreshCw className={`w-3 h-3 ${isLoading ? 'animate-spin' : ''}`} />
                 </button>
               </label>
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-2">
                 {/* ドロップダウン */}
-                <div className="relative flex-1 min-w-[200px]" ref={dropdownRef}>
+                <div className="relative w-64" ref={dropdownRef}>
                   <button
                     onClick={() => { setDropdownOpen(!dropdownOpen); setUseCustom(false); }}
                     disabled={isLoading}
@@ -399,77 +470,6 @@ const SurveyEditor = () => {
               </div>
             </div>
           </div>
-
-          {/* QRコードプレビュー または 案内メッセージ */}
-          {clinicName && qrCodeDisplayUrl ? (
-            <div className="flex items-center gap-4 p-3 bg-green-50 rounded-lg border border-green-200">
-              <img 
-                src={generateQRCode(qrCodeDisplayUrl, 80)} 
-                alt="QR Preview" 
-                className="w-16 h-16"
-              />
-              <div className="flex-1">
-                <p className="text-sm font-bold text-green-800 mb-1">
-                  ✓ 「{clinicName}」のQRコードが生成されました
-                </p>
-                <ul className="text-xs text-green-700 space-y-0.5 mb-2">
-                  <li className="flex"><span className="font-bold w-28 shrink-0">【印刷】</span><span>「印刷/PDF保存」ボタンでQRコード付きアンケートを印刷できます</span></li>
-                  <li className="flex"><span className="font-bold w-28 shrink-0">【QRコード】</span><span>スマートフォンでQRコードをスキャンするとフォームが開きます</span></li>
-                  <li className="flex"><span className="font-bold w-28 shrink-0">【フォームを開く】</span><span>下記URLをクリックするとフォームが開きます</span></li>
-                </ul>
-                {/* 生成URL表示 */}
-                <div className="flex items-center gap-2">
-                  <a
-                    href={prefilledFormUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="max-w-xs px-3 py-1.5 bg-white border border-green-300 rounded text-xs text-green-700 hover:bg-green-100 hover:border-green-400 transition-colors truncate flex items-center gap-1"
-                    title="クリックしてフォームを開く"
-                  >
-                    <Link className="w-3 h-3 shrink-0" />
-                    <span className="truncate">{prefilledFormUrl}</span>
-                    <ExternalLink className="w-3 h-3 shrink-0" />
-                  </a>
-                  <button
-                    onClick={copyUrl}
-                    className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1 ${
-                      copied 
-                        ? 'bg-green-200 text-green-800' 
-                        : 'bg-white border border-green-300 hover:bg-green-100 text-green-700'
-                    }`}
-                  >
-                    {copied ? <CheckCircle className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                    {copied ? 'コピー済' : 'コピー'}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 border-dashed">
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-blue-100 rounded-full">
-                  <Edit3 className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-blue-800 mb-1">
-                    医療機関名を選択してください
-                  </p>
-                  <p className="text-xs text-blue-600 mb-2">
-                    上のリストから医療機関を選ぶと、QRコード付きアンケート用紙が自動生成されます。
-                    <br />
-                    <span className="text-blue-500">※リストにない場合は「設定」ボタンから追加できます。</span>
-                  </p>
-                  <div className="flex flex-wrap gap-2 text-xs text-blue-500">
-                    <span className="px-2 py-1 bg-white rounded border border-blue-200">① 医療機関を選択</span>
-                    <span className="text-blue-400">→</span>
-                    <span className="px-2 py-1 bg-white rounded border border-blue-200">② QRコード生成</span>
-                    <span className="text-blue-400">→</span>
-                    <span className="px-2 py-1 bg-white rounded border border-blue-200">③ 印刷 or スキャン</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* 設定パネル */}
           {showSettings && (
