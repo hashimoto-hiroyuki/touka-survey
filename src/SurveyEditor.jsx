@@ -479,32 +479,6 @@ const SurveyEditor = () => {
                 詳細設定
               </h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* フォームURL */}
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1">GoogleフォームURL</label>
-                  <input
-                    type="text"
-                    value={formBaseUrl}
-                    onChange={(e) => setFormBaseUrl(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
-                    placeholder="https://docs.google.com/forms/d/e/.../viewform"
-                  />
-                </div>
-
-                {/* Entry ID */}
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1">医療機関質問のEntry ID</label>
-                  <input
-                    type="text"
-                    value={entryId}
-                    onChange={(e) => setEntryId(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
-                    placeholder="例: 1078759429"
-                  />
-                </div>
-              </div>
-
               {/* 医療機関リスト管理 - 幅を半分に */}
               <div className="max-w-md">
                 <label className="block text-xs font-bold text-gray-500 mb-2 flex items-center gap-2">
