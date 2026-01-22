@@ -645,13 +645,9 @@ const SurveyEditor = () => {
                   {clinicName || '（未選択）'}
                 </span>
               </div>
-              <div className="w-full flex justify-end items-center">
+              <div className="w-full flex justify-end items-end">
                 <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">患者さんID:</span>
-                <div className="flex gap-1">
-                  {[...Array(10)].map((_, i) => (
-                    <div key={i} className="w-6 h-6 border border-gray-500 shrink-0"></div>
-                  ))}
-                </div>
+                <div className="w-40 h-6 border-b border-gray-500"></div>
               </div>
             </div>
           </div>
@@ -851,24 +847,24 @@ const SurveyEditor = () => {
                 <div className="space-y-1 mt-1">
                   <div className="flex items-end">
                     <span className="font-bold w-20">回答1</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
+                    <span className="border-b border-black w-32 mx-1"></span>
                     <span>を週に</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
+                    <span className="border-b border-black w-12 mx-1"></span>
                     <span>回、</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
+                    <span className="border-b border-black w-32 mx-1"></span>
                     <span>を</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
+                    <span className="border-b border-black w-12 mx-1"></span>
                     <span>程度</span>
                   </div>
                   <div className="flex items-end">
                     <span className="font-bold w-20">回答2</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
+                    <span className="border-b border-black w-32 mx-1"></span>
                     <span>を週に</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
+                    <span className="border-b border-black w-12 mx-1"></span>
                     <span>回、</span>
-                    <span className="border-b-2 border-black w-32 mx-1"></span>
+                    <span className="border-b border-black w-32 mx-1"></span>
                     <span>を</span>
-                    <span className="border-b-2 border-black w-12 mx-1"></span>
+                    <span className="border-b border-black w-12 mx-1"></span>
                     <span>程度</span>
                   </div>
                 </div>
@@ -889,16 +885,16 @@ const SurveyEditor = () => {
             <div className="flex items-center mb-1">
               <span className="w-20 text-lg">質問14</span>
               <span>歯の抜去位置を記入してください。</span>
-              <div className="ml-4 flex items-center gap-3">
-                <div className="flex items-center gap-1">
-                  <span className="text-sm">□右</span>
-                  <span className="text-sm">□左</span>
+              <div className="ml-4 flex items-center gap-6">
+                <div className="flex items-center gap-4">
+                  <span>□ 右</span>
+                  <span>□ 左</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-sm">□上</span>
-                  <span className="text-sm">□下</span>
+                <div className="flex items-center gap-4">
+                  <span>□ 上</span>
+                  <span>□ 下</span>
                 </div>
-                <div className="w-8 h-6 border-b border-gray-500"></div>
+                <div className="w-12 h-6 border-b border-gray-500"></div>
               </div>
             </div>
             <div className="flex items-start mb-1">
