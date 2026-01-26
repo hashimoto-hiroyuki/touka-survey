@@ -87,10 +87,10 @@ const SurveyEditor = () => {
     clearMessages();
     
     try {
-      const result = await callApi({ action: 'getHospitalList' });
-      
+      const result = await callApi({ action: 'getHospitals' });
+
       if (result.success) {
-        setHospitalList(result.data);
+        setHospitalList(result.hospitals);
       } else {
         setError(result.error || 'データの取得に失敗しました');
       }
@@ -110,11 +110,12 @@ const SurveyEditor = () => {
     
     try {
       const result = await callApi({ action: 'addHospital', name: newHospital.trim() });
-      
+
       if (result.success) {
-        setHospitalList(result.data.list);
+        // 追加後にリストを再取得
+        await fetchHospitalList();
         setNewHospital('');
-        showSuccess(`「${result.data.added}」を追加しました`);
+        showSuccess(`「${newHospital.trim()}」を追加しました`);
       } else {
         setError(result.error || '追加に失敗しました');
       }
@@ -147,9 +148,10 @@ const SurveyEditor = () => {
     
     try {
       const result = await callApi({ action: 'deleteHospital', name });
-      
+
       if (result.success) {
-        setHospitalList(result.data.list);
+        // 削除後にリストを再取得
+        await fetchHospitalList();
         if (selectedHospital === name) {
           setSelectedHospital('');
         }
@@ -176,14 +178,15 @@ const SurveyEditor = () => {
     
     try {
       const result = await callApi({ action: 'updateHospital', oldName, newName: editingValue.trim() });
-      
+
       if (result.success) {
-        setHospitalList(result.data.list);
+        // 更新後にリストを再取得
+        await fetchHospitalList();
         if (selectedHospital === oldName) {
-          setSelectedHospital(result.data.newName);
+          setSelectedHospital(editingValue.trim());
         }
         setEditingHospital(null);
-        showSuccess(`「${oldName}」→「${result.data.newName}」に更新しました`);
+        showSuccess(`「${oldName}」→「${editingValue.trim()}」に更新しました`);
       } else {
         setError(result.error || '更新に失敗しました');
       }
