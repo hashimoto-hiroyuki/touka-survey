@@ -2,13 +2,13 @@ import React, { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { Edit3, Printer, Link, Settings, ChevronDown, Check, Plus, X, ExternalLink, Copy, CheckCircle, RefreshCw, Trash2, Pencil, Save, Loader2, AlertCircle } from 'lucide-react';
 
 // Apps Script Web App URL
-const API_URL = 'https://script.google.com/a/macros/devine.co.jp/s/AKfycbyzI_SZPg7EhcwsNDgFnzCFcz82vrFPD35bDt8KxRewjxpQemgbj0n2L_xOFOySi7xPSQ/exec';
+const API_URL = 'https://script.google.com/a/macros/devine.co.jp/s/AKfycbzQCrKRX7nJgryTPsP2Aceh4_Ofyef2Ez2iBmHUGBYF3K15XYZk-5Na8XDIlLCqlAGtVQ/exec';
 const SurveyEditor = () => {
   // === 設定 ===
   const [formBaseUrl, setFormBaseUrl] = useState(
     'https://docs.google.com/forms/d/e/1FAIpQLSfK29rSSrvSjt7onYIO5gDCLDhtj776z-EhKfTxf2gUlGPBlQ/viewform'
   );
-  const [entryId, setEntryId] = useState('413326623');
+  const [entryId, setEntryId] = useState('482936188');
   
   // === 医療機関リスト ===
   const [hospitalList, setHospitalList] = useState([]);
