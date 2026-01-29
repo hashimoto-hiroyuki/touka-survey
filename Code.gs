@@ -189,20 +189,13 @@ function syncHospitalListOnly() {
 
   const form = FormApp.getActiveForm();
 
-  // ページ区切りを取得
-  const pageBreaks = form.getItems(FormApp.ItemType.PAGE_BREAK);
-
-  // sec1(医療機関)の次にあるのが基本情報セクション（インデックス1）
-  const secBasicInfo = pageBreaks[1].asPageBreakItem();
-
   // ★ MultipleChoiceItem（ラジオボタン）を検索 ★
   const items = form.getItems(FormApp.ItemType.MULTIPLE_CHOICE);
   for (let i = 0; i < items.length; i++) {
     if (items[i].getTitle() === HOSPITAL_QUESTION_TITLE) {
       const q = items[i].asMultipleChoiceItem();
-      // すべての選択肢を基本情報セクションへ飛ばす
-      const choices = hList.map(name => q.createChoice(name, secBasicInfo));
-      q.setChoices(choices);
+      // ページジャンプなしで選択肢を設定（プリフィル対応）
+      q.setChoiceValues(hList);
       break;
     }
   }
@@ -359,10 +352,9 @@ function rebuildFullForm() {
 
   Logger.log("医療機関リスト: " + JSON.stringify(hList));
 
-  // 医療機関選択後は基本情報セクション(sec2)へ
+  // 医療機関選択（ページジャンプなし - プリフィル対応のため）
   if (hList.length > 0) {
-    const hChoices = hList.map(name => q1.createChoice(name, sec2));
-    q1.setChoices(hChoices);
+    q1.setChoiceValues(hList);
   }
 
   // --- 5. 条件分岐の設定 ---
