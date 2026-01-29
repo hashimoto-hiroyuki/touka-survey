@@ -1,8 +1,8 @@
 // ========== 設定セクション ==========
 const SPREADSHEET_ID = '1znspyaI-wj70aBkDfOPPrmYjPSSn3mFELW6VNfOSIbM';
-const SHEET_NAME = 'フォームの回答 1';
+const RESPONSE_SHEET_NAME = 'フォームの回答 1';  // 回答データ用
+const HOSPITAL_LIST_SHEET_NAME = '医療機関リスト';  // 医療機関リスト用
 const HOSPITAL_QUESTION_TITLE = '1. 受診中の歯科医院を選んでください。';
-const HOSPITAL_LIST_SHEET_NAME = '医療機関リスト';
 
 // ========== Web App エンドポイント（JSONP対応） ==========
 function doGet(e) {
@@ -49,15 +49,18 @@ function doGet(e) {
 // ========== 医療機関リスト取得 ==========
 function getHospitalList() {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(SHEET_NAME);
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
   const lastRow = sheet.getLastRow();
-  
-  if (lastRow < 2) {
+
+  if (lastRow < 1) {
     return [];
   }
-  
-  const data = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
-  return data.map(row => row[0]).filter(name => name !== '');
+
+  // 1行目から取得（ヘッダーなし）、空白と重複を除去
+  const data = sheet.getRange(1, 1, lastRow, 1).getValues();
+  let list = data.map(row => String(row[0]).trim()).filter(name => name !== '');
+  // 重複除去
+  return [...new Set(list)];
 }
 
 // ========== フォーム情報取得 ==========
@@ -72,8 +75,9 @@ function getFormInfo() {
 // ========== 医療機関質問のEntry ID取得 ==========
 function getHospitalQuestionEntryId() {
   const form = FormApp.getActiveForm();
-  const items = form.getItems(FormApp.ItemType.LIST);
-  
+  // ★ MultipleChoiceItem（ラジオボタン）を検索 ★
+  const items = form.getItems(FormApp.ItemType.MULTIPLE_CHOICE);
+
   for (let i = 0; i < items.length; i++) {
     if (items[i].getTitle().includes('受診中の歯科医院')) {
       return items[i].getId();
@@ -87,9 +91,9 @@ function addHospital(name) {
   if (!name || name.trim() === '') {
     throw new Error('医療機関名が空です');
   }
-  
+
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(SHEET_NAME);
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
   
   // 重複チェック
   const existingList = getHospitalList();
@@ -111,13 +115,13 @@ function deleteHospital(name) {
   if (!name) {
     throw new Error('医療機関名が指定されていません');
   }
-  
+
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(SHEET_NAME);
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
   const lastRow = sheet.getLastRow();
-  
-  // 該当行を探して削除
-  for (let i = 2; i <= lastRow; i++) {
+
+  // 該当行を探して削除（1行目から）
+  for (let i = 1; i <= lastRow; i++) {
     const cellValue = sheet.getRange(i, 1).getValue();
     if (cellValue === name) {
       sheet.deleteRow(i);
@@ -137,23 +141,23 @@ function updateHospital(oldName, newName) {
   if (!oldName || !newName) {
     throw new Error('医療機関名が指定されていません');
   }
-  
+
   if (newName.trim() === '') {
     throw new Error('新しい医療機関名が空です');
   }
-  
+
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(SHEET_NAME);
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
   const lastRow = sheet.getLastRow();
-  
+
   // 重複チェック（自分自身以外）
   const existingList = getHospitalList();
   if (oldName !== newName.trim() && existingList.includes(newName.trim())) {
     throw new Error('この医療機関名は既に存在します');
   }
-  
-  // 該当行を探して更新
-  for (let i = 2; i <= lastRow; i++) {
+
+  // 該当行を探して更新（1行目から）
+  for (let i = 1; i <= lastRow; i++) {
     const cellValue = sheet.getRange(i, 1).getValue();
     if (cellValue === oldName) {
       sheet.getRange(i, 1).setValue(newName.trim());
@@ -171,26 +175,31 @@ function updateHospital(oldName, newName) {
 // ========== Googleフォームの医療機関リストを同期 ==========
 function syncHospitalListOnly() {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(SHEET_NAME);
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
   const lastRow = sheet.getLastRow();
-  
+
   let hList = [];
-  if (lastRow >= 2) {
-    hList = sheet.getRange(2, 1, lastRow - 1, 1).getValues().map(r => r[0]).filter(n => n !== "");
+  if (lastRow >= 1) {
+    // 1行目から取得（ヘッダーなし）、空白と重複を除去
+    hList = sheet.getRange(1, 1, lastRow, 1).getValues()
+      .map(r => String(r[0]).trim())
+      .filter(n => n !== "");
+    hList = [...new Set(hList)];
   }
-  
+
   const form = FormApp.getActiveForm();
-  
+
   // ページ区切りを取得
   const pageBreaks = form.getItems(FormApp.ItemType.PAGE_BREAK);
-  
-  // sec1(医療機関)の次にあるのが基本情報セクション（インデックス1）
-  const secBasicInfo = pageBreaks[1].asPageBreakItem(); 
 
-  const items = form.getItems(FormApp.ItemType.LIST);
+  // sec1(医療機関)の次にあるのが基本情報セクション（インデックス1）
+  const secBasicInfo = pageBreaks[1].asPageBreakItem();
+
+  // ★ MultipleChoiceItem（ラジオボタン）を検索 ★
+  const items = form.getItems(FormApp.ItemType.MULTIPLE_CHOICE);
   for (let i = 0; i < items.length; i++) {
     if (items[i].getTitle() === HOSPITAL_QUESTION_TITLE) {
-      const q = items[i].asListItem();
+      const q = items[i].asMultipleChoiceItem();
       // すべての選択肢を基本情報セクションへ飛ばす
       const choices = hList.map(name => q.createChoice(name, secBasicInfo));
       q.setChoices(choices);
@@ -216,7 +225,8 @@ function rebuildFullForm() {
 
   // セクション1: 医療機関選択
   const sec1 = form.addPageBreakItem().setTitle('医療機関名');
-  const q1 = form.addListItem().setTitle(HOSPITAL_QUESTION_TITLE).setRequired(true);
+  // ★ MultipleChoiceItem（ラジオボタン）を使用 - プリフィルURLに対応 ★
+  const q1 = form.addMultipleChoiceItem().setTitle(HOSPITAL_QUESTION_TITLE).setRequired(true);
 
   // セクション2: 基本情報
   const sec2 = form.addPageBreakItem().setTitle('基本情報');
@@ -335,12 +345,19 @@ function rebuildFullForm() {
 
   // --- 4. 病院リスト取得と紐付け ---
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(SHEET_NAME);
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
   const lastRow = sheet.getLastRow();
   let hList = [];
-  if (lastRow >= 2) {
-    hList = sheet.getRange(2, 1, lastRow - 1, 1).getValues().map(r => r[0]).filter(n => n !== "");
+  if (lastRow >= 1) {
+    // 1行目から取得（ヘッダーなし）、空白と重複を除去
+    hList = sheet.getRange(1, 1, lastRow, 1).getValues()
+      .map(r => String(r[0]).trim())
+      .filter(n => n !== "");
+    // 重複除去
+    hList = [...new Set(hList)];
   }
+
+  Logger.log("医療機関リスト: " + JSON.stringify(hList));
 
   // 医療機関選択後は基本情報セクション(sec2)へ
   if (hList.length > 0) {
