@@ -2,7 +2,7 @@ import React, { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { Edit3, Printer, Link, Settings, ChevronDown, Check, Plus, X, ExternalLink, Copy, CheckCircle, RefreshCw, Trash2, Pencil, Save, Loader2, AlertCircle } from 'lucide-react';
 
 // Apps Script Web App URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbx3r9OkrlI1ySB7IwUImqF5b5qyaCdTeMUbTfnWVPsIOMObxPxEdpSn58XuJy0PU2yvdA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxB2Lv549VxYNXAfd7jXjUDNz0-kT8Ohju8iBzDtt4dmCH-8E3vpyy4fZ0vxNVSUUcsxA/exec';
 const SurveyEditor = () => {
   // === 設定 ===
   const [formBaseUrl, setFormBaseUrl] = useState(
