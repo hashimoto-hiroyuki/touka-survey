@@ -6,9 +6,9 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbx3r9OkrlI1ySB7IwUImqF5
 const SurveyEditor = () => {
   // === 設定 ===
   const [formBaseUrl, setFormBaseUrl] = useState(
-    'https://docs.google.com/forms/d/e/1FAIpQLSdkW-wPX_R9SpjA1dFt3DYXIM1kql-WA4EnSyKywfLEhng9fA/viewform'
+    'https://docs.google.com/forms/d/e/1FAIpQLSfK29rSSrvSjt7onYIO5gDCLDhtj776z-EhKfTxf2gU1GPB1Q/viewform'
   );
-  const [entryId, setEntryId] = useState('1078759429');
+  const [entryId, setEntryId] = useState('1968647932');
   
   // === 医療機関リスト ===
   const [hospitalList, setHospitalList] = useState([]);
