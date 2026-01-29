@@ -43,16 +43,12 @@ const SurveyEditor = () => {
     setSuccessMessage(null);
   };
 
-  // 成功メッセージを表示（同期完了後に消える）
+  // 成功メッセージを表示（APIレスポンス時点で同期完了済み）
   const showSuccessWithSync = (message) => {
-    setIsSyncing(true);
-    setSuccessMessage(message + '（フォーム同期中...）');
-    // 同期完了を待つ（約5秒）
-    setTimeout(() => {
-      setIsSyncing(false);
-      setSuccessMessage(message + '（完了）');
-      setTimeout(() => setSuccessMessage(null), 2000);
-    }, 5000);
+    // APIレスポンスが返った時点でフォーム同期は完了している
+    setIsSyncing(false);
+    setSuccessMessage(message + '（フォーム同期完了）');
+    setTimeout(() => setSuccessMessage(null), 3000);
   };
 
   // 成功メッセージを表示（3秒後に消える）
@@ -117,21 +113,27 @@ const SurveyEditor = () => {
   // 医療機関を追加
   const addHospital = async () => {
     if (!newHospital.trim()) return;
-    
+
     setIsLoading(true);
+    setIsSyncing(true);
     clearMessages();
-    
+    setSuccessMessage('フォームに同期中...');
+
     try {
       const result = await callApi({ action: 'addHospital', name: newHospital.trim() });
-      
+
       if (result.success) {
         setHospitalList(result.data.list);
         setNewHospital('');
         showSuccessWithSync(`「${result.data.added}」を追加しました`);
       } else {
+        setIsSyncing(false);
+        setSuccessMessage(null);
         setError(result.error || '追加に失敗しました');
       }
     } catch (err) {
+      setIsSyncing(false);
+      setSuccessMessage(null);
       setError('サーバーに接続できません: ' + err.message);
     } finally {
       setIsLoading(false);
@@ -154,13 +156,15 @@ const SurveyEditor = () => {
     if (!confirm(`「${name}」を削除しますか？\n\n※Googleフォームの選択肢からも削除されます`)) {
       return;
     }
-    
+
     setIsLoading(true);
+    setIsSyncing(true);
     clearMessages();
-    
+    setSuccessMessage('フォームに同期中...');
+
     try {
       const result = await callApi({ action: 'deleteHospital', name });
-      
+
       if (result.success) {
         setHospitalList(result.data.list);
         if (selectedHospital === name) {
@@ -168,9 +172,13 @@ const SurveyEditor = () => {
         }
         showSuccessWithSync(`「${name}」を削除しました`);
       } else {
+        setIsSyncing(false);
+        setSuccessMessage(null);
         setError(result.error || '削除に失敗しました');
       }
     } catch (err) {
+      setIsSyncing(false);
+      setSuccessMessage(null);
       setError('サーバーに接続できません: ' + err.message);
     } finally {
       setIsLoading(false);
@@ -183,13 +191,15 @@ const SurveyEditor = () => {
       setEditingHospital(null);
       return;
     }
-    
+
     setIsLoading(true);
+    setIsSyncing(true);
     clearMessages();
-    
+    setSuccessMessage('フォームに同期中...');
+
     try {
       const result = await callApi({ action: 'updateHospital', oldName, newName: editingValue.trim() });
-      
+
       if (result.success) {
         setHospitalList(result.data.list);
         if (selectedHospital === oldName) {
@@ -198,9 +208,13 @@ const SurveyEditor = () => {
         setEditingHospital(null);
         showSuccessWithSync(`「${oldName}」→「${result.data.newName}」に更新しました`);
       } else {
+        setIsSyncing(false);
+        setSuccessMessage(null);
         setError(result.error || '更新に失敗しました');
       }
     } catch (err) {
+      setIsSyncing(false);
+      setSuccessMessage(null);
       setError('サーバーに接続できません: ' + err.message);
     } finally {
       setIsLoading(false);
