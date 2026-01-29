@@ -2,11 +2,11 @@ import React, { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { Edit3, Printer, Link, Settings, ChevronDown, Check, Plus, X, ExternalLink, Copy, CheckCircle, RefreshCw, Trash2, Pencil, Save, Loader2, AlertCircle } from 'lucide-react';
 
 // Apps Script Web App URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbxB2Lv549VxYNXAfd7jXjUDNz0-kT8Ohju8iBzDtt4dmCH-8E3vpyy4fZ0vxNVSUUcsxA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbx3r9OkrlI1ySB7IwUImqF5b5qyaCdTeMUbTfnWVPsIOMObxPxEdpSn58XuJy0PU2yvdA/exec';
 const SurveyEditor = () => {
   // === 設定 ===
   const [formBaseUrl, setFormBaseUrl] = useState(
-    'https://docs.google.com/forms/d/e/1FAIpQLSfK29rSSrvSjt7onYIO5gDCLDhtj776z-EhKfTxf2gUlGPBlQ/viewform'
+    'https://docs.google.com/forms/d/e/1FAIpQLSdkW-wPX_R9SpjA1dFt3DYXIM1kql-WA4EnSyKywfLEhng9fA/viewform'
   );
   const [entryId, setEntryId] = useState('1078759429');
   
@@ -87,10 +87,10 @@ const SurveyEditor = () => {
     clearMessages();
     
     try {
-      const result = await callApi({ action: 'getHospitals' });
-
+      const result = await callApi({ action: 'getHospitalList' });
+      
       if (result.success) {
-        setHospitalList(result.hospitals);
+        setHospitalList(result.data);
       } else {
         setError(result.error || 'データの取得に失敗しました');
       }
@@ -110,12 +110,11 @@ const SurveyEditor = () => {
     
     try {
       const result = await callApi({ action: 'addHospital', name: newHospital.trim() });
-
+      
       if (result.success) {
-        // 追加後にリストを再取得
-        await fetchHospitalList();
+        setHospitalList(result.data.list);
         setNewHospital('');
-        showSuccess(`「${newHospital.trim()}」を追加しました`);
+        showSuccess(`「${result.data.added}」を追加しました`);
       } else {
         setError(result.error || '追加に失敗しました');
       }
@@ -148,10 +147,9 @@ const SurveyEditor = () => {
     
     try {
       const result = await callApi({ action: 'deleteHospital', name });
-
+      
       if (result.success) {
-        // 削除後にリストを再取得
-        await fetchHospitalList();
+        setHospitalList(result.data.list);
         if (selectedHospital === name) {
           setSelectedHospital('');
         }
@@ -178,15 +176,14 @@ const SurveyEditor = () => {
     
     try {
       const result = await callApi({ action: 'updateHospital', oldName, newName: editingValue.trim() });
-
+      
       if (result.success) {
-        // 更新後にリストを再取得
-        await fetchHospitalList();
+        setHospitalList(result.data.list);
         if (selectedHospital === oldName) {
-          setSelectedHospital(editingValue.trim());
+          setSelectedHospital(result.data.newName);
         }
         setEditingHospital(null);
-        showSuccess(`「${oldName}」→「${editingValue.trim()}」に更新しました`);
+        showSuccess(`「${oldName}」→「${result.data.newName}」に更新しました`);
       } else {
         setError(result.error || '更新に失敗しました');
       }
@@ -880,14 +877,9 @@ const SurveyEditor = () => {
                 <div className="w-12 h-6 border-b border-gray-500"></div>
               </div>
             </div>
-            <div className="flex items-start mb-1">
-              <span className="w-20 text-lg">質問15</span>
-              <span>その他、コメント欄（例　HbA1c　4.9　2025.9.26）</span>
-            </div>
-            <div className="flex">
-              <div className="w-20"></div>
-              <div className="flex-1 border border-gray-500 min-h-[50px] mr-28"></div>
-            </div>
+            <p className="text-sm mt-2">
+              その他、HbA1cなどの記入事項がございましたら、裏面をご利用ください。
+            </p>
 
             {/* QRコード */}
             {clinicName && qrCodeDisplayUrl && (

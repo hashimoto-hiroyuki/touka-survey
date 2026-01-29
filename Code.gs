@@ -1,7 +1,8 @@
-// ========== 設定 ==========
-const SPREADSHEET_ID = '1WslHkw34cxOe9YlB1owJKgnsNiV71SN_v1tO9U51GJA';
-const SHEET_NAME = 'シート1';
+// ========== 設定セクション ==========
+const SPREADSHEET_ID = '1znspyaI-wj70aBkDfOPPrmYjPSSn3mFELW6VNfOSIbM';
+const SHEET_NAME = 'フォームの回答 1';
 const HOSPITAL_QUESTION_TITLE = '1. 受診中の歯科医院を選んでください。';
+const HOSPITAL_LIST_SHEET_NAME = '医療機関リスト';
 
 // ========== Web App エンドポイント（JSONP対応） ==========
 function doGet(e) {
@@ -263,12 +264,8 @@ function rebuildFullForm() {
     .setRequired(true)
     .setValidation(valDay);
 
-  // セクション3: 回答者種別
-  const sec3 = form.addPageBreakItem().setTitle('回答者種別');
-  const q8 = form.addMultipleChoiceItem().setTitle('8. あなたは患者さんですか、それとも医師ですか？').setRequired(true);
-
-  // セクション4: 患者用情報（性別・血液型・身長・体重）
-  const sec4 = form.addPageBreakItem().setTitle('患者情報');
+  // セクション3: 患者情報（性別・血液型・身長・体重）
+  const sec3 = form.addPageBreakItem().setTitle('患者情報');
   
   // 性別（Q9）
   const q9 = form.addMultipleChoiceItem()
@@ -336,18 +333,6 @@ function rebuildFullForm() {
   const drink2 = createDrinkingSec('飲酒の詳細【回答2】', 30);
   const drink3 = createDrinkingSec('飲酒の詳細【回答3】', 35);
 
-  // --- 医師用セクション ---
-  const secDoctor = form.addPageBreakItem().setTitle('抜歯情報（医師用）');
-  const qDoctorPos1 = form.addListItem()
-    .setTitle('抜歯位置 - 部位')
-    .setChoiceValues(['右上', '右下', '左上', '左下'])
-    .setRequired(true);
-  
-  const qDoctorPos2 = form.addListItem()
-    .setTitle('抜歯位置 - 歯番')
-    .setChoiceValues(['1', '2', '3', '4', '5', '6', '7', '8', 'A', 'B', 'C', 'D', 'E'])
-    .setRequired(true);
-
   // --- 4. 病院リスト取得と紐付け ---
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   const sheet = ss.getSheetByName(SHEET_NAME);
@@ -364,16 +349,7 @@ function rebuildFullForm() {
   }
 
   // --- 5. 条件分岐の設定 ---
-  
-  // 回答者種別の分岐（Q8：生年月日の後）
-  q8.setChoices([
-    q8.createChoice('患者', sec4),
-    q8.createChoice('医師', secDoctor)
-  ]);
-  
-  // 医師用セクションは回答後に送信
-  secDoctor.setGoToPage(FormApp.PageNavigationType.SUBMIT);
-  
+
   // 疾患ジャンプ
   q13.setChoices([q13.createChoice('はい', sec6), q13.createChoice('いいえ', sec7)]);
   q15.setChoices([q15.createChoice('はい', sec8), q15.createChoice('いいえ', sec9)]);
@@ -406,7 +382,7 @@ function rebuildFullForm() {
     drink3.nextQ.createChoice('ない', FormApp.PageNavigationType.SUBMIT)
   ]);
 
-  Logger.log("再構築完了！（血液型追加版）");
+  Logger.log("再構築完了！（医師用セクション削除版）");
 }
 
 // ========== デバッグ・テスト用関数 ==========
