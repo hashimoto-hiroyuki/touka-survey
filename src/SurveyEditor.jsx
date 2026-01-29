@@ -13,9 +13,10 @@ const SurveyEditor = () => {
   // === 医療機関リスト ===
   const [hospitalList, setHospitalList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);  // フォーム同期中フラグ
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  
+
   // === UI状態 ===
   const [showSettings, setShowSettings] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState('');
@@ -40,6 +41,18 @@ const SurveyEditor = () => {
   const clearMessages = () => {
     setError(null);
     setSuccessMessage(null);
+  };
+
+  // 成功メッセージを表示（同期完了後に消える）
+  const showSuccessWithSync = (message) => {
+    setIsSyncing(true);
+    setSuccessMessage(message + '（フォーム同期中...）');
+    // 同期完了を待つ（約2秒）
+    setTimeout(() => {
+      setIsSyncing(false);
+      setSuccessMessage(message + '（完了）');
+      setTimeout(() => setSuccessMessage(null), 2000);
+    }, 2000);
   };
 
   // 成功メッセージを表示（3秒後に消える）
@@ -114,7 +127,7 @@ const SurveyEditor = () => {
       if (result.success) {
         setHospitalList(result.data.list);
         setNewHospital('');
-        showSuccess(`「${result.data.added}」を追加しました`);
+        showSuccessWithSync(`「${result.data.added}」を追加しました`);
       } else {
         setError(result.error || '追加に失敗しました');
       }
@@ -153,7 +166,7 @@ const SurveyEditor = () => {
         if (selectedHospital === name) {
           setSelectedHospital('');
         }
-        showSuccess(`「${name}」を削除しました`);
+        showSuccessWithSync(`「${name}」を削除しました`);
       } else {
         setError(result.error || '削除に失敗しました');
       }
@@ -183,7 +196,7 @@ const SurveyEditor = () => {
           setSelectedHospital(result.data.newName);
         }
         setEditingHospital(null);
-        showSuccess(`「${oldName}」→「${result.data.newName}」に更新しました`);
+        showSuccessWithSync(`「${oldName}」→「${result.data.newName}」に更新しました`);
       } else {
         setError(result.error || '更新に失敗しました');
       }
@@ -324,8 +337,16 @@ const SurveyEditor = () => {
           )}
           
           {successMessage && (
-            <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2 text-green-700">
-              <CheckCircle className="w-4 h-4 flex-shrink-0" />
+            <div className={`mb-4 p-3 rounded-lg flex items-center gap-2 ${
+              isSyncing
+                ? 'bg-yellow-50 border border-yellow-200 text-yellow-700'
+                : 'bg-green-50 border border-green-200 text-green-700'
+            }`}>
+              {isSyncing ? (
+                <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
+              ) : (
+                <CheckCircle className="w-4 h-4 flex-shrink-0" />
+              )}
               <span className="text-sm">{successMessage}</span>
             </div>
           )}
