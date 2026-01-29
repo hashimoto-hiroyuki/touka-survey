@@ -47,12 +47,12 @@ const SurveyEditor = () => {
   const showSuccessWithSync = (message) => {
     setIsSyncing(true);
     setSuccessMessage(message + '（フォーム同期中...）');
-    // 同期完了を待つ（約2秒）
+    // 同期完了を待つ（約5秒）
     setTimeout(() => {
       setIsSyncing(false);
       setSuccessMessage(message + '（完了）');
       setTimeout(() => setSuccessMessage(null), 2000);
-    }, 2000);
+    }, 5000);
   };
 
   // 成功メッセージを表示（3秒後に消える）
