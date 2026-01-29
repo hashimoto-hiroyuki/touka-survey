@@ -229,7 +229,7 @@ const SurveyEditor = () => {
   // prefill URL生成
   const prefilledFormUrl = useMemo(() => {
     if (!formBaseUrl || !clinicName) return '';
-    
+
     try {
       const url = new URL(formBaseUrl);
       if (entryId) {
@@ -241,6 +241,13 @@ const SurveyEditor = () => {
       return formBaseUrl;
     }
   }, [formBaseUrl, entryId, clinicName]);
+
+  // デバッグ用: コンソールにURLを出力
+  useEffect(() => {
+    if (prefilledFormUrl) {
+      console.log('Generated URL:', prefilledFormUrl);
+    }
+  }, [prefilledFormUrl]);
 
   // QRコード生成
   const generateQRCode = (url, size = 150) => {
