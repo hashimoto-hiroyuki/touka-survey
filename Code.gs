@@ -3,6 +3,8 @@ const SPREADSHEET_ID = '1znspyaI-wj70aBkDfOPPrmYjPSSn3mFELW6VNfOSIbM';
 const RESPONSE_SHEET_NAME = 'フォームの回答 1';  // 回答データ用
 const HOSPITAL_LIST_SHEET_NAME = '医療機関リスト';  // 医療機関リスト用
 const HOSPITAL_QUESTION_TITLE = '1. 受診中の歯科医院を選んでください。';
+const JSON_FOLDER_NAME = 'アンケートJSON';  // JSON保存フォルダ名
+const JSON_CREATED_COLUMN_NAME = 'JSON作成済み';  // フラグ列の名前
 
 // ========== Web App エンドポイント（JSONP対応） ==========
 function doGet(e) {
@@ -49,17 +51,15 @@ function doGet(e) {
 // ========== 医療機関リスト取得 ==========
 function getHospitalList() {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);
   const lastRow = sheet.getLastRow();
 
   if (lastRow < 1) {
     return [];
   }
 
-  // 1行目から取得（ヘッダーなし）、空白と重複を除去
   const data = sheet.getRange(1, 1, lastRow, 1).getValues();
   let list = data.map(row => String(row[0]).trim()).filter(name => name !== '');
-  // 重複除去
   return [...new Set(list)];
 }
 
@@ -75,7 +75,6 @@ function getFormInfo() {
 // ========== 医療機関質問のEntry ID取得 ==========
 function getHospitalQuestionEntryId() {
   const form = FormApp.getActiveForm();
-  // ★ MultipleChoiceItem（ラジオボタン）を検索 ★
   const items = form.getItems(FormApp.ItemType.MULTIPLE_CHOICE);
 
   for (let i = 0; i < items.length; i++) {
@@ -93,18 +92,14 @@ function addHospital(name) {
   }
 
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);
   
-  // 重複チェック
   const existingList = getHospitalList();
   if (existingList.includes(name.trim())) {
     throw new Error('この医療機関名は既に存在します');
   }
   
-  // 追加
   sheet.appendRow([name.trim()]);
-  
-  // Googleフォームも同期
   syncHospitalListOnly();
   
   return { added: name.trim(), list: getHospitalList() };
@@ -117,18 +112,14 @@ function deleteHospital(name) {
   }
 
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);
   const lastRow = sheet.getLastRow();
 
-  // 該当行を探して削除（1行目から）
   for (let i = 1; i <= lastRow; i++) {
     const cellValue = sheet.getRange(i, 1).getValue();
     if (cellValue === name) {
       sheet.deleteRow(i);
-      
-      // Googleフォームも同期
       syncHospitalListOnly();
-      
       return { deleted: name, list: getHospitalList() };
     }
   }
@@ -147,24 +138,19 @@ function updateHospital(oldName, newName) {
   }
 
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);
   const lastRow = sheet.getLastRow();
 
-  // 重複チェック（自分自身以外）
   const existingList = getHospitalList();
   if (oldName !== newName.trim() && existingList.includes(newName.trim())) {
     throw new Error('この医療機関名は既に存在します');
   }
 
-  // 該当行を探して更新（1行目から）
   for (let i = 1; i <= lastRow; i++) {
     const cellValue = sheet.getRange(i, 1).getValue();
     if (cellValue === oldName) {
       sheet.getRange(i, 1).setValue(newName.trim());
-      
-      // Googleフォームも同期
       syncHospitalListOnly();
-      
       return { oldName: oldName, newName: newName.trim(), list: getHospitalList() };
     }
   }
@@ -175,12 +161,11 @@ function updateHospital(oldName, newName) {
 // ========== Googleフォームの医療機関リストを同期 ==========
 function syncHospitalListOnly() {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);
   const lastRow = sheet.getLastRow();
 
   let hList = [];
   if (lastRow >= 1) {
-    // 1行目から取得（ヘッダーなし）、空白と重複を除去
     hList = sheet.getRange(1, 1, lastRow, 1).getValues()
       .map(r => String(r[0]).trim())
       .filter(n => n !== "");
@@ -188,13 +173,10 @@ function syncHospitalListOnly() {
   }
 
   const form = FormApp.getActiveForm();
-
-  // ★ MultipleChoiceItem（ラジオボタン）を検索 ★
   const items = form.getItems(FormApp.ItemType.MULTIPLE_CHOICE);
   for (let i = 0; i < items.length; i++) {
     if (items[i].getTitle() === HOSPITAL_QUESTION_TITLE) {
       const q = items[i].asMultipleChoiceItem();
-      // ページジャンプなしで選択肢を設定（プリフィル対応）
       q.setChoiceValues(hList);
       break;
     }
@@ -205,36 +187,26 @@ function syncHospitalListOnly() {
 function rebuildFullForm() {
   const form = FormApp.getActiveForm();
   
-  // --- 1. 既存の質問をすべて削除 ---
   const items = form.getItems();
   items.forEach(item => form.deleteItem(item));
 
-  // --- 2. 基本設定 ---
   form.setTitle('糖化アンケート_v9_3')
       .setDescription('生活習慣に関するアンケートにご協力ください。')
       .setCollectEmail(true);
 
-  // --- 3. セクションと質問の作成 ---
-
-  // セクション1: 医療機関選択
   const sec1 = form.addPageBreakItem().setTitle('医療機関名');
-  // ★ MultipleChoiceItem（ラジオボタン）を使用 - プリフィルURLに対応 ★
   const q1 = form.addMultipleChoiceItem().setTitle(HOSPITAL_QUESTION_TITLE).setRequired(true);
 
-  // セクション2: 基本情報
   const sec2 = form.addPageBreakItem().setTitle('基本情報');
 
-  // ID番号（Q2）
   const valId = FormApp.createTextValidation()
     .requireTextMatchesPattern('^[a-zA-Z0-9]+$')
     .setHelpText('半角英数字で入力してください。')
     .build();
   const q2 = form.addTextItem().setTitle('2. ID番号').setRequired(true).setValidation(valId);
 
-  // 名前（Q3）
   const q3 = form.addTextItem().setTitle('3. 名前').setRequired(true);
   
-  // 生年月日（Q4-Q7）- 4つの質問に分割
   const q4 = form.addListItem()
     .setTitle('4. 生年月日 - 年号')
     .setChoiceValues(['昭和', '平成', '令和'])
@@ -267,27 +239,21 @@ function rebuildFullForm() {
     .setRequired(true)
     .setValidation(valDay);
 
-  // セクション3: 患者情報（性別・血液型・身長・体重）
   const sec3 = form.addPageBreakItem().setTitle('患者情報');
   
-  // 性別（Q9）
   const q9 = form.addMultipleChoiceItem()
     .setTitle('9. 性別')
     .setChoiceValues(['男性', '女性', 'その他', '回答しない'])
     .setRequired(true);
   
-  // 血液型（Q10）★新規追加★
   const q10 = form.addMultipleChoiceItem()
     .setTitle('10. 血液型')
     .setChoiceValues(['A型', 'B型', 'O型', 'AB型', 'わからない'])
     .setRequired(true);
   
-  // 身長・体重（Q11,12）
   const valNum = FormApp.createTextValidation().requireNumber().build();
   const q11 = form.addTextItem().setTitle('11. 身長 cm').setRequired(true).setValidation(valNum);
   const q12 = form.addTextItem().setTitle('12. 体重 kg').setRequired(true).setValidation(valNum);
-
-  // --- 糖尿病・疾患系セクション ---
 
   const sec5 = form.addPageBreakItem().setTitle('糖尿病について');
   const q13 = form.addMultipleChoiceItem().setTitle('13. 糖尿病と診断されていますか？').setRequired(true);
@@ -313,7 +279,6 @@ function rebuildFullForm() {
   const sec12 = form.addPageBreakItem().setTitle('ご両親の糖尿病の期間');
   const q20 = form.addMultipleChoiceItem().setTitle('20. 何年前からですか？').setChoiceValues(['3年以内', '3～10年以内', '10年以上前', 'わからない']).setRequired(true);
 
-  // --- 生活習慣セクション ---
   const sec13 = form.addPageBreakItem().setTitle('生活習慣について');
   form.addMultipleChoiceItem().setTitle('21. 普段、運動をしてますか？').setChoiceValues(['ほぼ毎日', '週2～3回', '週1回以下', 'しない']).setRequired(true);
   form.addCheckboxItem().setTitle('22. 普段、飲む物は何ですか？').setChoiceValues(['有糖飲料(ジュース、炭酸飲料、スポーツドリンク、加糖コーヒーなど)', '無糖飲料(お茶、水、炭酸水、無糖コーヒーなど)']).setRequired(true);
@@ -321,7 +286,6 @@ function rebuildFullForm() {
   
   const q24 = form.addMultipleChoiceItem().setTitle('24. お酒（ビール、ワイン、焼酎、ウイスキーなど）を習慣的に飲みますか？').setRequired(true);
 
-  // --- 飲酒詳細セクション生成関数 ---
   function createDrinkingSec(title, baseNum) {
     const sec = form.addPageBreakItem().setTitle(title);
     form.addListItem().setTitle(baseNum + '. お酒の種類').setChoiceValues(['ビール', '日本酒', '焼酎', 'チューハイ', 'ワイン', 'ウイスキー', 'ブランデー', '梅酒', '泡盛']).setRequired(true);
@@ -336,48 +300,38 @@ function rebuildFullForm() {
   const drink2 = createDrinkingSec('飲酒の詳細【回答2】', 30);
   const drink3 = createDrinkingSec('飲酒の詳細【回答3】', 35);
 
-  // --- 4. 病院リスト取得と紐付け ---
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);  // 医療機関リストシートを使用
+  const sheet = ss.getSheetByName(HOSPITAL_LIST_SHEET_NAME);
   const lastRow = sheet.getLastRow();
   let hList = [];
   if (lastRow >= 1) {
-    // 1行目から取得（ヘッダーなし）、空白と重複を除去
     hList = sheet.getRange(1, 1, lastRow, 1).getValues()
       .map(r => String(r[0]).trim())
       .filter(n => n !== "");
-    // 重複除去
     hList = [...new Set(hList)];
   }
 
   Logger.log("医療機関リスト: " + JSON.stringify(hList));
 
-  // 医療機関選択（ページジャンプなし - プリフィル対応のため）
   if (hList.length > 0) {
     q1.setChoiceValues(hList);
   }
 
-  // --- 5. 条件分岐の設定 ---
-
-  // 疾患ジャンプ
   q13.setChoices([q13.createChoice('はい', sec6), q13.createChoice('いいえ', sec7)]);
   q15.setChoices([q15.createChoice('はい', sec8), q15.createChoice('いいえ', sec9)]);
   q17.setChoices([q17.createChoice('はい', sec10), q17.createChoice('いいえ', sec11)]);
   q19.setChoices([q19.createChoice('はい', sec12), q19.createChoice('いいえ', sec13)]);
   
-  // 期間回答後の自動進捗
   sec6.setGoToPage(sec7);
   sec8.setGoToPage(sec9);
   sec10.setGoToPage(sec11);
   sec12.setGoToPage(sec13);
 
-  // 24. お酒を飲むかどうかの分岐
   q24.setChoices([
     q24.createChoice('はい（習慣的に飲む）', drink1.section),
     q24.createChoice('いいえ（ほとんど飲まない）', FormApp.PageNavigationType.SUBMIT)
   ]);
 
-  // 飲酒回答後の「他にもありますか？」分岐
   drink1.nextQ.setChoices([
     drink1.nextQ.createChoice('ある', drink2.section),
     drink1.nextQ.createChoice('ない', FormApp.PageNavigationType.SUBMIT)
@@ -408,7 +362,6 @@ function getFormEntryIds() {
     Logger.log('Title: "' + item.getTitle() + '" | ID: ' + item.getId() + ' | Type: ' + item.getType());
   });
   
-  // 特に医療機関の質問のIDを確認
   const hospitalQ = items.find(item => item.getTitle().includes('受診中の歯科医院'));
   if (hospitalQ) {
     Logger.log('');
@@ -424,4 +377,208 @@ function getFormPublishedUrl() {
 
 function testGetHospitalList() {
   Logger.log(getHospitalList());
+}
+
+// ========== JSON保存機能 ==========
+
+/**
+ * フォーム送信時に呼び出されるトリガー関数
+ */
+function onFormSubmit(e) {
+  try {
+    const row = e.range.getRow();
+    const sheet = e.range.getSheet();
+
+    const jsonColumnIndex = getOrCreateJsonFlagColumn(sheet);
+
+    const flagValue = sheet.getRange(row, jsonColumnIndex).getValue();
+    if (flagValue === '済') {
+      Logger.log('行 ' + row + ' は既にJSON作成済みのためスキップ');
+      return;
+    }
+
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    const rowData = sheet.getRange(row, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+    const jsonData = buildJsonFromRow(headers, rowData);
+    saveJsonToGoogleDrive(jsonData, row);
+
+    sheet.getRange(row, jsonColumnIndex).setValue('済');
+
+    Logger.log('行 ' + row + ' のJSON作成完了');
+  } catch (error) {
+    Logger.log('onFormSubmit エラー: ' + error.toString());
+  }
+}
+
+/**
+ * JSON作成済みフラグ列のインデックスを取得（なければ作成）
+ */
+function getOrCreateJsonFlagColumn(sheet) {
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  for (let i = 0; i < headers.length; i++) {
+    if (headers[i] === JSON_CREATED_COLUMN_NAME) {
+      return i + 1;
+    }
+  }
+
+  const newColumnIndex = sheet.getLastColumn() + 1;
+  sheet.getRange(1, newColumnIndex).setValue(JSON_CREATED_COLUMN_NAME);
+  return newColumnIndex;
+}
+
+/**
+ * 行データからJSONオブジェクトを構築
+ */
+function buildJsonFromRow(headers, rowData) {
+  const json = {
+    metadata: {
+      createdAt: new Date().toISOString(),
+      source: 'GoogleForm'
+    },
+    data: {}
+  };
+
+  for (let i = 0; i < headers.length; i++) {
+    const header = headers[i];
+    const value = rowData[i];
+
+    if (header === JSON_CREATED_COLUMN_NAME) {
+      continue;
+    }
+
+    if (header === 'タイムスタンプ') {
+      json.metadata.submittedAt = value ? new Date(value).toISOString() : null;
+      continue;
+    }
+
+    if (header === 'メールアドレス') {
+      json.metadata.email = value || null;
+      continue;
+    }
+
+    json.data[header] = value !== '' ? value : null;
+  }
+
+  return json;
+}
+
+/**
+ * JSONファイルをGoogleドライブに保存
+ */
+function saveJsonToGoogleDrive(jsonData, rowNumber) {
+  const folder = getOrCreateJsonFolder();
+
+  const idNumber = jsonData.data['2. ID番号'] || null;
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  let fileName;
+
+  if (idNumber) {
+    fileName = 'survey_' + idNumber + '.json';
+  } else {
+    fileName = 'survey_row' + rowNumber + '_' + timestamp + '.json';
+  }
+
+  const existingFiles = folder.getFilesByName(fileName);
+  while (existingFiles.hasNext()) {
+    existingFiles.next().setTrashed(true);
+  }
+
+  const jsonString = JSON.stringify(jsonData, null, 2);
+  folder.createFile(fileName, jsonString, MimeType.PLAIN_TEXT);
+
+  Logger.log('JSONファイル作成: ' + fileName);
+}
+
+/**
+ * JSON保存用フォルダを取得または作成
+ */
+function getOrCreateJsonFolder() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const ssFile = DriveApp.getFileById(ss.getId());
+  const parentFolders = ssFile.getParents();
+
+  let parentFolder;
+  if (parentFolders.hasNext()) {
+    parentFolder = parentFolders.next();
+  } else {
+    parentFolder = DriveApp.getRootFolder();
+  }
+
+  const folders = parentFolder.getFoldersByName(JSON_FOLDER_NAME);
+  if (folders.hasNext()) {
+    return folders.next();
+  }
+
+  return parentFolder.createFolder(JSON_FOLDER_NAME);
+}
+
+/**
+ * 既存データでJSON未作成のものを一括処理
+ */
+function processExistingDataWithoutJson() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = ss.getSheetByName(RESPONSE_SHEET_NAME);
+
+  if (!sheet) {
+    Logger.log('回答シートが見つかりません: ' + RESPONSE_SHEET_NAME);
+    return;
+  }
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) {
+    Logger.log('データがありません');
+    return;
+  }
+
+  const jsonColumnIndex = getOrCreateJsonFlagColumn(sheet);
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  let processedCount = 0;
+  let skippedCount = 0;
+
+  for (let row = 2; row <= lastRow; row++) {
+    const flagValue = sheet.getRange(row, jsonColumnIndex).getValue();
+
+    if (flagValue === '済') {
+      skippedCount++;
+      continue;
+    }
+
+    const rowData = sheet.getRange(row, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+    if (!rowData[0]) {
+      continue;
+    }
+
+    const jsonData = buildJsonFromRow(headers, rowData);
+    saveJsonToGoogleDrive(jsonData, row);
+
+    sheet.getRange(row, jsonColumnIndex).setValue('済');
+
+    processedCount++;
+  }
+
+  Logger.log('処理完了: ' + processedCount + '件作成, ' + skippedCount + '件スキップ');
+}
+
+/**
+ * トリガーをセットアップする関数（初回のみ手動実行）
+ */
+function setupFormSubmitTrigger() {
+  const triggers = ScriptApp.getProjectTriggers();
+  triggers.forEach(trigger => {
+    if (trigger.getHandlerFunction() === 'onFormSubmit') {
+      ScriptApp.deleteTrigger(trigger);
+    }
+  });
+
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  ScriptApp.newTrigger('onFormSubmit')
+    .forSpreadsheet(ss)
+    .onFormSubmit()
+    .create();
+
+  Logger.log('フォーム送信トリガーを設定しました');
 }
