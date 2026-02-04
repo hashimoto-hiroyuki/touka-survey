@@ -3,6 +3,8 @@ const SPREADSHEET_ID = '1znspyaI-wj70aBkDfOPPrmYjPSSn3mFELW6VNfOSIbM';
 const RESPONSE_SHEET_NAME = 'フォームの回答 1';  // 回答データ用
 const HOSPITAL_LIST_SHEET_NAME = '医療機関リスト';  // 医療機関リスト用
 const HOSPITAL_QUESTION_TITLE = '1. 受診中の歯科医院を選んでください。';
+const JSON_FOLDER_NAME = 'アンケートJSON';  // JSON保存フォルダ名
+const JSON_CREATED_COLUMN_NAME = 'JSON作成済み';  // フラグ列の名前
 
 // ========== Web App エンドポイント（JSONP対応） ==========
 function doGet(e) {
@@ -424,4 +426,241 @@ function getFormPublishedUrl() {
 
 function testGetHospitalList() {
   Logger.log(getHospitalList());
+}
+
+// ========== JSON保存機能 ==========
+
+/**
+ * フォーム送信時に呼び出されるトリガー関数
+ * スプレッドシートのトリガー設定で「フォーム送信時」に設定する
+ */
+function onFormSubmit(e) {
+  try {
+    const row = e.range.getRow();
+    const sheet = e.range.getSheet();
+
+    // JSON作成済み列のインデックスを取得（なければ作成）
+    const jsonColumnIndex = getOrCreateJsonFlagColumn(sheet);
+
+    // すでにJSON作成済みならスキップ
+    const flagValue = sheet.getRange(row, jsonColumnIndex).getValue();
+    if (flagValue === '済') {
+      Logger.log('行 ' + row + ' は既にJSON作成済みのためスキップ');
+      return;
+    }
+
+    // 行データを取得してJSON作成
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    const rowData = sheet.getRange(row, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+    // JSONオブジェクトを構築
+    const jsonData = buildJsonFromRow(headers, rowData);
+
+    // JSONファイルを保存
+    saveJsonToGoogleDrive(jsonData, row);
+
+    // フラグを更新
+    sheet.getRange(row, jsonColumnIndex).setValue('済');
+
+    Logger.log('行 ' + row + ' のJSON作成完了');
+  } catch (error) {
+    Logger.log('onFormSubmit エラー: ' + error.toString());
+  }
+}
+
+/**
+ * JSON作成済みフラグ列のインデックスを取得（なければ作成）
+ */
+function getOrCreateJsonFlagColumn(sheet) {
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  // 既存のフラグ列を探す
+  for (let i = 0; i < headers.length; i++) {
+    if (headers[i] === JSON_CREATED_COLUMN_NAME) {
+      return i + 1;  // 1-indexed
+    }
+  }
+
+  // なければ最後に追加
+  const newColumnIndex = sheet.getLastColumn() + 1;
+  sheet.getRange(1, newColumnIndex).setValue(JSON_CREATED_COLUMN_NAME);
+  return newColumnIndex;
+}
+
+/**
+ * 行データからJSONオブジェクトを構築
+ */
+function buildJsonFromRow(headers, rowData) {
+  const json = {
+    metadata: {
+      createdAt: new Date().toISOString(),
+      source: 'GoogleForm'
+    },
+    data: {}
+  };
+
+  for (let i = 0; i < headers.length; i++) {
+    const header = headers[i];
+    const value = rowData[i];
+
+    // フラグ列とタイムスタンプは別扱い
+    if (header === JSON_CREATED_COLUMN_NAME) {
+      continue;
+    }
+
+    if (header === 'タイムスタンプ') {
+      json.metadata.submittedAt = value ? new Date(value).toISOString() : null;
+      continue;
+    }
+
+    if (header === 'メールアドレス') {
+      json.metadata.email = value || null;
+      continue;
+    }
+
+    // 質問番号と内容を分離してキーを作成
+    json.data[header] = value !== '' ? value : null;
+  }
+
+  return json;
+}
+
+/**
+ * JSONファイルをGoogleドライブに保存
+ */
+function saveJsonToGoogleDrive(jsonData, rowNumber) {
+  // JSON保存用フォルダを取得または作成
+  const folder = getOrCreateJsonFolder();
+
+  // ファイル名を生成（ID番号があればそれを使用、なければ行番号とタイムスタンプ）
+  const idNumber = jsonData.data['2. ID番号'] || null;
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  let fileName;
+
+  if (idNumber) {
+    fileName = 'survey_' + idNumber + '.json';
+  } else {
+    fileName = 'survey_row' + rowNumber + '_' + timestamp + '.json';
+  }
+
+  // 既存ファイルがあれば削除（上書き）
+  const existingFiles = folder.getFilesByName(fileName);
+  while (existingFiles.hasNext()) {
+    existingFiles.next().setTrashed(true);
+  }
+
+  // JSONファイルを作成
+  const jsonString = JSON.stringify(jsonData, null, 2);
+  folder.createFile(fileName, jsonString, MimeType.PLAIN_TEXT);
+
+  Logger.log('JSONファイル作成: ' + fileName);
+}
+
+/**
+ * JSON保存用フォルダを取得または作成
+ */
+function getOrCreateJsonFolder() {
+  // スプレッドシートと同じフォルダにJSONフォルダを作成
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const ssFile = DriveApp.getFileById(ss.getId());
+  const parentFolders = ssFile.getParents();
+
+  let parentFolder;
+  if (parentFolders.hasNext()) {
+    parentFolder = parentFolders.next();
+  } else {
+    parentFolder = DriveApp.getRootFolder();
+  }
+
+  // JSON保存用フォルダを探す
+  const folders = parentFolder.getFoldersByName(JSON_FOLDER_NAME);
+  if (folders.hasNext()) {
+    return folders.next();
+  }
+
+  // なければ作成
+  return parentFolder.createFolder(JSON_FOLDER_NAME);
+}
+
+/**
+ * 既存データでJSON未作成のものを一括処理
+ * 手動で実行するか、定期トリガーで実行
+ */
+function processExistingDataWithoutJson() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = ss.getSheetByName(RESPONSE_SHEET_NAME);
+
+  if (!sheet) {
+    Logger.log('回答シートが見つかりません: ' + RESPONSE_SHEET_NAME);
+    return;
+  }
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) {
+    Logger.log('データがありません');
+    return;
+  }
+
+  // JSON作成済み列のインデックスを取得
+  const jsonColumnIndex = getOrCreateJsonFlagColumn(sheet);
+
+  // ヘッダー行を取得
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  let processedCount = 0;
+  let skippedCount = 0;
+
+  // 2行目から最終行までループ
+  for (let row = 2; row <= lastRow; row++) {
+    const flagValue = sheet.getRange(row, jsonColumnIndex).getValue();
+
+    // 既にJSON作成済みならスキップ
+    if (flagValue === '済') {
+      skippedCount++;
+      continue;
+    }
+
+    // 行データを取得
+    const rowData = sheet.getRange(row, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+    // 空行はスキップ
+    if (!rowData[0]) {
+      continue;
+    }
+
+    // JSONオブジェクトを構築
+    const jsonData = buildJsonFromRow(headers, rowData);
+
+    // JSONファイルを保存
+    saveJsonToGoogleDrive(jsonData, row);
+
+    // フラグを更新
+    sheet.getRange(row, jsonColumnIndex).setValue('済');
+
+    processedCount++;
+  }
+
+  Logger.log('処理完了: ' + processedCount + '件作成, ' + skippedCount + '件スキップ');
+}
+
+/**
+ * トリガーをセットアップする関数（初回のみ手動実行）
+ */
+function setupFormSubmitTrigger() {
+  // 既存のトリガーを削除
+  const triggers = ScriptApp.getProjectTriggers();
+  triggers.forEach(trigger => {
+    if (trigger.getHandlerFunction() === 'onFormSubmit') {
+      ScriptApp.deleteTrigger(trigger);
+    }
+  });
+
+  // 新しいトリガーを作成
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  ScriptApp.newTrigger('onFormSubmit')
+    .forSpreadsheet(ss)
+    .onFormSubmit()
+    .create();
+
+  Logger.log('フォーム送信トリガーを設定しました');
 }
