@@ -687,13 +687,17 @@ const SurveyEditor = () => {
             <div className="flex items-end py-0.5">
               <span className="w-20 text-lg">質問２</span>
               <span className="mr-4 font-bold">生年月日</span>
-              <span className="mr-2">昭和・平成・令和</span>
-              <span className="w-16 border-b border-gray-400 mx-1 text-center"></span>
+              <span className="mr-1">昭和・平成・令和</span>
+              <span className="w-12 border-b border-gray-400 mx-0.5 text-center"></span>
               <span>年</span>
-              <span className="w-10 border-b border-gray-400 mx-1 text-center"></span>
+              <span className="w-8 border-b border-gray-400 mx-0.5 text-center"></span>
               <span>月</span>
-              <span className="w-10 border-b border-gray-400 mx-1 text-center"></span>
+              <span className="w-8 border-b border-gray-400 mx-0.5 text-center"></span>
               <span>日</span>
+              <span className="ml-auto pl-4 flex items-center gap-1 whitespace-nowrap">
+                <span>□</span>
+                <span>以降、QRコードで回答</span>
+              </span>
             </div>
 
             <div className="flex items-end py-0.5">
