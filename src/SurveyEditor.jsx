@@ -8,7 +8,7 @@ const SurveyEditor = () => {
   const [formBaseUrl, setFormBaseUrl] = useState(
     'https://docs.google.com/forms/d/e/1FAIpQLSfK29rSSrvSjt7onYIO5gDCLDhtj776z-EhKfTxf2gUlGPBlQ/viewform'
   );
-  const [entryId, setEntryId] = useState('347681686');
+  const [entryId, setEntryId] = useState('1734287724');
   
   // === 医療機関リスト ===
   const [hospitalList, setHospitalList] = useState([]);
@@ -221,10 +221,25 @@ const SurveyEditor = () => {
     }
   };
 
+  // フォーム情報を取得（Entry IDを動的に更新）
+  const fetchFormInfo = useCallback(async () => {
+    try {
+      const result = await callApi({ action: 'getFormInfo' });
+      if (result.success && result.data) {
+        if (result.data.formUrl) setFormBaseUrl(result.data.formUrl);
+        if (result.data.entryId) setEntryId(String(result.data.entryId));
+        console.log('FormInfo取得:', result.data);
+      }
+    } catch (err) {
+      console.warn('FormInfo取得失敗（デフォルト値を使用）:', err.message);
+    }
+  }, [callApi]);
+
   // 初回読み込み
   useEffect(() => {
     fetchHospitalList();
-  }, [fetchHospitalList]);
+    fetchFormInfo();
+  }, [fetchHospitalList, fetchFormInfo]);
 
   // prefill URL生成
   const prefilledFormUrl = useMemo(() => {
