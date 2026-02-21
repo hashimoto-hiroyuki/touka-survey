@@ -318,25 +318,25 @@ function rebuildFullForm() {
   const q13 = form.addMultipleChoiceItem().setTitle('13. 糖尿病と診断されていますか？').setRequired(true);
 
   const sec6 = form.addPageBreakItem().setTitle('糖尿病の期間');
-  const q14 = form.addMultipleChoiceItem().setTitle('14. 何年前からですか？').setChoiceValues(['3年以内', '10年以内', 'もっと以前', 'わからない']).setRequired(true);
+  const q14 = form.addMultipleChoiceItem().setTitle('14. 何年前からですか？').setChoiceValues(['5年未満', '5〜10年前', '10年以上前', 'わからない']).setRequired(true);
 
   const sec7 = form.addPageBreakItem().setTitle('脂質異常症について');
   const q15 = form.addMultipleChoiceItem().setTitle('15. 脂質異常症と診断されていますか？').setRequired(true);
 
   const sec8 = form.addPageBreakItem().setTitle('脂質異常症の期間');
-  const q16 = form.addMultipleChoiceItem().setTitle('16. 何年前からですか？').setChoiceValues(['3年以内', '3～10年以内', '10年以上前', 'わからない']).setRequired(true);
+  const q16 = form.addMultipleChoiceItem().setTitle('16. 何年前からですか？').setChoiceValues(['5年未満', '5〜10年前', '10年以上前', 'わからない']).setRequired(true);
 
   const sec9 = form.addPageBreakItem().setTitle('ご兄弟の糖尿病歴');
   const q17 = form.addMultipleChoiceItem().setTitle('17. ご兄弟に糖尿病歴はありますか？').setRequired(true);
 
   const sec10 = form.addPageBreakItem().setTitle('ご兄弟の糖尿病の期間');
-  const q18 = form.addMultipleChoiceItem().setTitle('18. 何年前からですか？').setChoiceValues(['3年以内', '3～10年以内', '10年以上前', 'わからない']).setRequired(true);
+  const q18 = form.addMultipleChoiceItem().setTitle('18. 何年前からですか？').setChoiceValues(['5年未満', '5〜10年前', '10年以上前', 'わからない']).setRequired(true);
 
   const sec11 = form.addPageBreakItem().setTitle('ご両親の糖尿病歴');
   const q19 = form.addMultipleChoiceItem().setTitle('19. ご両親に糖尿病歴はありますか？').setRequired(true);
 
   const sec12 = form.addPageBreakItem().setTitle('ご両親の糖尿病の期間');
-  const q20 = form.addMultipleChoiceItem().setTitle('20. 何年前からですか？').setChoiceValues(['3年以内', '3～10年以内', '10年以上前', 'わからない']).setRequired(true);
+  const q20 = form.addMultipleChoiceItem().setTitle('20. 何年前からですか？').setChoiceValues(['5年未満', '5〜10年前', '10年以上前', 'わからない']).setRequired(true);
 
   // --- 生活習慣セクション ---
   const sec13 = form.addPageBreakItem().setTitle('生活習慣について');

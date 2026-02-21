@@ -806,23 +806,12 @@ const SurveyEditor = () => {
               <tr>
                 <td className="py-1 align-top text-lg">質問10</td>
                 <td className="py-1" colSpan="2">
-                  <div className="flex justify-between w-full max-w-lg">
-                    <span className="font-medium">ほとんど運動しない</span>
-                    <div className="flex gap-8">
-                      <span>□ はい</span>
-                      <span>□ いいえ</span>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="py-1 align-top text-lg">質問11</td>
-                <td className="py-1" colSpan="2">
-                  <div className="mb-0.5 font-medium">お菓子、スイーツなどを週何回食べますか</div>
+                  <div className="mb-0.5 font-medium">普段、運動をしてますか？</div>
                   <div className="flex gap-8 ml-8">
                     <span>□ ほぼ毎日</span>
-                    <span>□ 週2~3回</span>
-                    <span>□ 週1回以下または食べない</span>
+                    <span>□ 週2～3回</span>
+                    <span>□ 週1回以下</span>
+                    <span>□ しない</span>
                   </div>
                 </td>
               </tr>
@@ -831,7 +820,7 @@ const SurveyEditor = () => {
 
           {/* 飲み物 */}
           <div className="mb-2">
-            <p className="text-lg mb-0.5">質問12　最もよく飲む飲み物は何ですか？</p>
+            <p className="text-lg mb-0.5">質問11　最もよく飲む飲み物は何ですか？</p>
             <div className="ml-8 space-y-0.5">
               <div className="flex items-start">
                 <span className="mr-2 mt-0.5">□</span>
@@ -845,6 +834,25 @@ const SurveyEditor = () => {
                 <span className="font-medium">無糖飲料（お茶、水、炭酸水、無糖コーヒーなど）</span>
               </div>
             </div>
+          </div>
+
+          {/* お菓子・スイーツ */}
+          <div className="mb-2">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="py-1 align-top text-lg">質問12</td>
+                  <td className="py-1" colSpan="2">
+                    <div className="mb-0.5 font-medium">お菓子、スイーツなどを週何回食べますか</div>
+                    <div className="flex gap-8 ml-8">
+                      <span>□ ほぼ毎日</span>
+                      <span>□ 週2~3回</span>
+                      <span>□ 週1回以下または食べない</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           {/* アルコール */}
