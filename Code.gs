@@ -329,14 +329,8 @@ function rebuildFullForm() {
   const sec9 = form.addPageBreakItem().setTitle('ご兄弟の糖尿病歴');
   const q17 = form.addMultipleChoiceItem().setTitle('17. ご兄弟に糖尿病歴はありますか？').setRequired(true);
 
-  const sec10 = form.addPageBreakItem().setTitle('ご兄弟の糖尿病の期間');
-  const q18 = form.addMultipleChoiceItem().setTitle('18. 何年前からですか？').setChoiceValues(['5年未満', '5〜10年前', '10年以上前', 'わからない']).setRequired(true);
-
   const sec11 = form.addPageBreakItem().setTitle('ご両親の糖尿病歴');
   const q19 = form.addMultipleChoiceItem().setTitle('19. ご両親に糖尿病歴はありますか？').setRequired(true);
-
-  const sec12 = form.addPageBreakItem().setTitle('ご両親の糖尿病の期間');
-  const q20 = form.addMultipleChoiceItem().setTitle('20. 何年前からですか？').setChoiceValues(['5年未満', '5〜10年前', '10年以上前', 'わからない']).setRequired(true);
 
   // --- 生活習慣セクション ---
   const sec13 = form.addPageBreakItem().setTitle('生活習慣について');
@@ -382,13 +376,11 @@ function rebuildFullForm() {
   // --- 5. 条件分岐の設定 ---
   q13.setChoices([q13.createChoice('はい', sec6), q13.createChoice('いいえ', sec7)]);
   q15.setChoices([q15.createChoice('はい', sec8), q15.createChoice('いいえ', sec9)]);
-  q17.setChoices([q17.createChoice('はい', sec10), q17.createChoice('いいえ', sec11)]);
-  q19.setChoices([q19.createChoice('はい', sec12), q19.createChoice('いいえ', sec13)]);
+  q17.setChoices([q17.createChoice('はい', sec11), q17.createChoice('いいえ', sec11)]);
+  q19.setChoices([q19.createChoice('はい', sec13), q19.createChoice('いいえ', sec13)]);
 
   sec6.setGoToPage(sec7);
   sec8.setGoToPage(sec9);
-  sec10.setGoToPage(sec11);
-  sec12.setGoToPage(sec13);
 
   q24.setChoices([
     q24.createChoice('はい（習慣的に飲む）', drink1.section),
