@@ -789,8 +789,8 @@ const SurveyEditor = () => {
                 <td className="py-1 align-top text-lg">質問８</td>
                 <td className="py-1" colSpan="2">
                   <div className="flex items-center">
-                    <span className="font-medium w-[17em] shrink-0">兄弟に糖尿病歴はありますか？</span>
-                    <div className="flex gap-8">
+                    <span className="font-medium">兄弟に糖尿病歴はありますか？</span>
+                    <div className="flex gap-8 ml-6">
                       <span>□ はい</span>
                       <span>□ いいえ</span>
                       <span>□ わからない</span>
@@ -802,8 +802,8 @@ const SurveyEditor = () => {
                 <td className="py-1 align-top text-lg">質問９</td>
                 <td className="py-1" colSpan="2">
                   <div className="flex items-center">
-                    <span className="font-medium w-[17em] shrink-0">両親に糖尿病歴はありますか？</span>
-                    <div className="flex gap-8">
+                    <span className="font-medium">両親に糖尿病歴はありますか？</span>
+                    <div className="flex gap-8 ml-6">
                       <span>□ はい</span>
                       <span>□ いいえ</span>
                       <span>□ わからない</span>
@@ -815,8 +815,8 @@ const SurveyEditor = () => {
                 <td className="py-1 align-top text-lg">質問10</td>
                 <td className="py-1" colSpan="2">
                   <div className="flex items-center">
-                    <span className="font-medium w-[17em] shrink-0">普段、運動をしてますか？</span>
-                    <div className="flex gap-6">
+                    <span className="font-medium">普段、運動をしてますか？</span>
+                    <div className="flex gap-6 ml-6">
                       <span>□ ほぼ毎日</span>
                       <span>□ 週2～3回</span>
                       <span>□ 週1回以下</span>
