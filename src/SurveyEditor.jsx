@@ -928,27 +928,26 @@ const SurveyEditor = () => {
 
           <hr className="border-t-2 border-gray-400 my-2" />
 
-          {/* 裏面医師記入欄への誘導 */}
-          <div className="relative">
-            <div className="flex items-center justify-end mt-2 mr-4">
+          {/* QRコード */}
+          {clinicName && qrCodeDisplayUrl && (
+            <div className="flex justify-end mt-2">
+              <img
+                src={generateQRCode(qrCodeDisplayUrl, 150)}
+                alt="QR Code"
+                className="w-24 h-24 object-contain"
+              />
+            </div>
+          )}
+
+          {/* 裏面誘導 + ご協力テキスト（ページ最下部に配置） */}
+          <div className="absolute bottom-8 left-0 right-0 px-[10mm]">
+            <div className="flex items-center justify-end mr-4 mb-1">
               <p className="text-base font-bold">裏面に医師記入欄がございます。</p>
               <span className="text-3xl ml-2">↘</span>
             </div>
-
-            {/* QRコード */}
-            {clinicName && qrCodeDisplayUrl && (
-              <div className="absolute right-0 bottom-0">
-                <img
-                  src={generateQRCode(qrCodeDisplayUrl, 150)}
-                  alt="QR Code"
-                  className="w-24 h-24 object-contain"
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="text-center mt-3 text-base font-medium">
-            ご協力ありがとうございました。
+            <div className="text-center text-base font-medium">
+              ご協力ありがとうございました。
+            </div>
           </div>
 
         </div>
