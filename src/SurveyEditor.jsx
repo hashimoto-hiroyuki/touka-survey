@@ -667,36 +667,34 @@ const SurveyEditor = () => {
         {/* ===== 1ページ目：アンケート本体 ===== */}
         <div ref={printRef} className="print-page bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[10mm] relative text-base leading-normal box-border mx-auto print:shadow-none">
           
-          {/* ヘッダー */}
-          <div className="grid grid-cols-[1fr_auto_1fr] items-end mb-2 border-b-0 pb-0 w-full">
-            <div className="flex flex-col items-start text-base">
-              <div className="w-full flex items-end mb-1">
+          {/* タイトル */}
+          <div className="text-center mb-2">
+            <h1 className="text-3xl font-bold inline-block border-b-2 border-black pb-1 whitespace-nowrap">
+              糖化アンケート
+            </h1>
+          </div>
+
+          {/* 医療機関名・患者ID + QRコード */}
+          <div className="flex justify-between items-start mb-2">
+            <div className="flex flex-col text-base">
+              <div className="flex items-end mb-1">
                 <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">医療機関名</span>
                 <span className="text-lg border-b border-gray-500 text-center px-2 font-bold break-keep min-w-[140px]">
                   {clinicName || '（未選択）'}
                 </span>
               </div>
-              <div className="w-full flex items-end">
+              <div className="flex items-end">
                 <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">患者さんID:</span>
                 <div className="w-40 h-6 border-b border-gray-500"></div>
               </div>
             </div>
-            <div className="text-center px-2">
-              <h1 className="text-3xl font-bold inline-block border-b-2 border-black pb-1 whitespace-nowrap">
-                糖化アンケート
-              </h1>
-            </div>
-            <div className="flex justify-end">
-              {clinicName && qrCodeDisplayUrl ? (
-                <img
-                  src={generateQRCode(qrCodeDisplayUrl, 200)}
-                  alt="QR Code"
-                  className="w-28 h-28 object-contain"
-                />
-              ) : (
-                <div></div>
-              )}
-            </div>
+            {clinicName && qrCodeDisplayUrl && (
+              <img
+                src={generateQRCode(qrCodeDisplayUrl, 200)}
+                alt="QR Code"
+                className="w-28 h-28 object-contain"
+              />
+            )}
           </div>
 
           {/* 基本情報入力欄 */}
