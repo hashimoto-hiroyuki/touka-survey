@@ -932,9 +932,9 @@ const SurveyEditor = () => {
           {clinicName && qrCodeDisplayUrl && (
             <div className="flex justify-end mt-2">
               <img
-                src={generateQRCode(qrCodeDisplayUrl, 150)}
+                src={generateQRCode(qrCodeDisplayUrl, 200)}
                 alt="QR Code"
-                className="w-24 h-24 object-contain"
+                className="w-32 h-32 object-contain"
               />
             </div>
           )}
