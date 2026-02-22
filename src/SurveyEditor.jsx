@@ -686,13 +686,13 @@ const SurveyEditor = () => {
           {/* 医療機関名・患者ID */}
           <div className="flex flex-col text-base mb-2 mt-8">
             <div className="flex items-end mb-1">
-              <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">医療機関名</span>
+              <span className="mr-2 whitespace-nowrap text-lg shrink-0 font-bold">医療機関名</span>
               <span className="text-lg border-b border-gray-500 text-center px-2 font-bold break-keep min-w-[140px]">
                 {clinicName || '（未選択）'}
               </span>
             </div>
             <div className="flex items-end">
-              <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">患者さんID:</span>
+              <span className="mr-2 whitespace-nowrap text-lg shrink-0 font-bold">患者さんID:</span>
               <div className="w-40 h-6 border-b border-gray-500"></div>
             </div>
           </div>
