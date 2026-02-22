@@ -788,9 +788,9 @@ const SurveyEditor = () => {
               <tr>
                 <td className="py-1 align-top text-lg">質問８</td>
                 <td className="py-1" colSpan="2">
-                  <div className="flex justify-between w-full max-w-2xl">
+                  <div className="flex items-center">
                     <span className="font-medium">兄弟に糖尿病歴はありますか？</span>
-                    <div className="flex gap-8">
+                    <div className="flex gap-8 ml-6">
                       <span>□ はい</span>
                       <span>□ いいえ</span>
                       <span>□ わからない</span>
@@ -801,9 +801,9 @@ const SurveyEditor = () => {
               <tr>
                 <td className="py-1 align-top text-lg">質問９</td>
                 <td className="py-1" colSpan="2">
-                  <div className="flex justify-between w-full max-w-2xl">
+                  <div className="flex items-center">
                     <span className="font-medium">両親に糖尿病歴はありますか？</span>
-                    <div className="flex gap-8">
+                    <div className="flex gap-8 ml-6">
                       <span>□ はい</span>
                       <span>□ いいえ</span>
                       <span>□ わからない</span>
@@ -831,7 +831,7 @@ const SurveyEditor = () => {
           {/* 飲み物 */}
           <div className="mb-2">
             <p className="text-lg mb-0.5">質問11　最もよく飲む飲み物は何ですか？</p>
-            <div className="ml-8 space-y-0.5">
+            <div className="space-y-0.5">
               <div className="flex items-start">
                 <span className="mr-2 mt-0.5">□</span>
                 <div>
@@ -854,7 +854,7 @@ const SurveyEditor = () => {
                   <td className="py-1 align-top text-lg">質問12</td>
                   <td className="py-1" colSpan="2">
                     <div className="mb-0.5 font-medium">お菓子、スイーツなどを週何回食べますか</div>
-                    <div className="flex gap-8 ml-8">
+                    <div className="flex gap-8">
                       <span>□ ほぼ毎日</span>
                       <span>□ 週2~3回</span>
                       <span>□ 週1回以下または食べない</span>
@@ -936,15 +936,16 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          {/* ご協力テキスト + 裏面誘導（ページ最下部に配置） */}
+          {/* ご協力テキスト（質問13の直下） */}
+          <div className="text-center mt-4 mb-2">
+            <p className="text-base font-medium">ご協力ありがとうございました。</p>
+            <hr className="border-t border-gray-400 mt-2 mx-auto w-4/5" />
+          </div>
+
+          {/* 裏面誘導（ページ最下部に配置） */}
           <div className="absolute bottom-8 left-0 right-0 px-[10mm]">
-            <div className="text-center mb-4">
-              <span className="text-base font-medium border border-gray-400 px-8 py-2 inline-block">
-                ご協力ありがとうございました。
-              </span>
-            </div>
             <div className="flex justify-end items-center mr-4">
-              <span className="text-base font-bold border border-gray-400 px-4 py-1">裏面に医師記入欄がございます。</span>
+              <span className="text-base font-bold">裏面に医師記入欄がございます。</span>
               <span className="text-2xl ml-1">↘</span>
             </div>
           </div>
