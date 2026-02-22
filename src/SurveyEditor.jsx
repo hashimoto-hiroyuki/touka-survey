@@ -669,23 +669,33 @@ const SurveyEditor = () => {
           
           {/* ヘッダー */}
           <div className="grid grid-cols-[1fr_auto_1fr] items-end mb-2 border-b-0 pb-0 w-full">
-            <div></div>
-            <div className="text-center px-2">
-              <h1 className="text-3xl font-bold inline-block border-b-2 border-black pb-1 whitespace-nowrap">
-                糖化アンケート
-              </h1>
-            </div>
-            <div className="flex flex-col items-end text-base">
-              <div className="w-full flex justify-end items-end mb-1">
+            <div className="flex flex-col items-start text-base">
+              <div className="w-full flex items-end mb-1">
                 <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">医療機関名</span>
                 <span className="text-lg border-b border-gray-500 text-center px-2 font-bold break-keep min-w-[140px]">
                   {clinicName || '（未選択）'}
                 </span>
               </div>
-              <div className="w-full flex justify-end items-end">
+              <div className="w-full flex items-end">
                 <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">患者さんID:</span>
                 <div className="w-40 h-6 border-b border-gray-500"></div>
               </div>
+            </div>
+            <div className="text-center px-2">
+              <h1 className="text-3xl font-bold inline-block border-b-2 border-black pb-1 whitespace-nowrap">
+                糖化アンケート
+              </h1>
+            </div>
+            <div className="flex justify-end">
+              {clinicName && qrCodeDisplayUrl ? (
+                <img
+                  src={generateQRCode(qrCodeDisplayUrl, 200)}
+                  alt="QR Code"
+                  className="w-28 h-28 object-contain"
+                />
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
 
@@ -928,25 +938,13 @@ const SurveyEditor = () => {
 
           <hr className="border-t-2 border-gray-400 my-2" />
 
-          {/* QRコード */}
-          {clinicName && qrCodeDisplayUrl && (
-            <div className="flex justify-end mt-2">
-              <img
-                src={generateQRCode(qrCodeDisplayUrl, 200)}
-                alt="QR Code"
-                className="w-32 h-32 object-contain"
-              />
-            </div>
-          )}
-
-          {/* 裏面誘導 + ご協力テキスト（ページ最下部に配置） */}
+          {/* ご協力テキスト + 裏面誘導（ページ最下部に配置） */}
           <div className="absolute bottom-8 left-0 right-0 px-[10mm]">
-            <div className="flex items-center justify-end mr-4 mb-1">
-              <p className="text-base font-bold">裏面に医師記入欄がございます。</p>
-              <span className="text-3xl ml-2">↘</span>
-            </div>
-            <div className="text-center text-base font-medium">
+            <div className="text-center text-base font-medium mb-2">
               ご協力ありがとうございました。
+            </div>
+            <div className="flex justify-end mr-4">
+              <p className="text-base font-bold">裏面に医師記入欄がございます。</p>
             </div>
           </div>
 
