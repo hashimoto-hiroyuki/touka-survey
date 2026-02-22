@@ -857,7 +857,7 @@ const SurveyEditor = () => {
 
           {/* アルコール */}
           <div className="mb-2">
-            <p className="text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">別紙の選択肢一覧をご参照ください</span></p>
+            <p className="text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">裏面の選択肢一覧をご参照ください</span></p>
             
             <div className="ml-6">
               <div className="flex items-center mb-0.5 font-bold">
@@ -1077,6 +1077,36 @@ const SurveyEditor = () => {
               </table>
             </div>
 
+          </div>
+
+          {/* 医師記入欄 */}
+          <div className="border-2 border-gray-700 p-4 mt-6">
+            <p className="font-bold text-lg mb-3">【医師記入欄】</p>
+
+            {/* 抜歯位置 3行 */}
+            {[1, 2, 3].map((row) => (
+              <div key={row} className="flex items-center mb-2">
+                <span className="text-base mr-4">抜歯位置</span>
+                <div className="flex items-center gap-3">
+                  <span>□右</span>
+                  <span>□左</span>
+                </div>
+                <div className="flex items-center gap-3 ml-4">
+                  <span>□上</span>
+                  <span>□下</span>
+                </div>
+                <div className="ml-4 flex items-center">
+                  <div className="w-16 border-b border-gray-500"></div>
+                  <span className="ml-1">番</span>
+                </div>
+              </div>
+            ))}
+
+            {/* その他記入欄 */}
+            <div className="mt-3">
+              <span className="text-base">その他　特記すべき事項がありましたら記入をお願いします。（例 HbA1c　2023.10）</span>
+              <div className="mt-2 border-b border-gray-400 h-8"></div>
+            </div>
           </div>
 
           {/* フッター */}
