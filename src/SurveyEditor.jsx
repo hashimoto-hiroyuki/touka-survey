@@ -814,9 +814,9 @@ const SurveyEditor = () => {
               <tr>
                 <td className="py-1 align-top text-lg">質問10</td>
                 <td className="py-1" colSpan="2">
-                  <div className="flex justify-between w-full max-w-2xl">
+                  <div className="flex items-center">
                     <span className="font-medium">普段、運動をしてますか？</span>
-                    <div className="flex gap-6">
+                    <div className="flex gap-6 ml-6">
                       <span>□ ほぼ毎日</span>
                       <span>□ 週2～3回</span>
                       <span>□ 週1回以下</span>
