@@ -875,7 +875,7 @@ const SurveyEditor = () => {
               <span><span className="font-medium">飲酒習慣についてご質問致します。</span><span className="text-sm font-normal ml-2">裏面の選択肢一覧をご参照ください</span></span>
             </div>
             
-            <div className="ml-6">
+            <div className="ml-20">
               <div className="flex items-center mb-0.5 font-bold">
                 <span className="mr-2">□</span>
                 <span>飲む</span>
