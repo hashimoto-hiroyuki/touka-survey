@@ -684,7 +684,7 @@ const SurveyEditor = () => {
           </div>
 
           {/* 医療機関名・患者ID */}
-          <div className="flex flex-col text-base mb-2">
+          <div className="flex flex-col text-base mb-2 mt-8">
             <div className="flex items-end mb-1">
               <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">医療機関名</span>
               <span className="text-lg border-b border-gray-500 text-center px-2 font-bold break-keep min-w-[140px]">
