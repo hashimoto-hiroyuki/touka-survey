@@ -935,7 +935,7 @@ const SurveyEditor = () => {
                 </div>
               </div>
 
-              <div className="flex items-center mt-1 font-bold">
+              <div className="flex items-center mt-4 font-bold">
                 <span className="mr-2">□</span>
                 <span>ほとんど飲まない</span>
               </div>
