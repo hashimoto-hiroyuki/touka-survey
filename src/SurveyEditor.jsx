@@ -830,7 +830,7 @@ const SurveyEditor = () => {
 
           {/* 飲み物 */}
           <div className="mb-2">
-            <p className="text-lg mb-0.5">質問11　最もよく飲む飲み物は何ですか？</p>
+            <p className="mb-0.5"><span className="text-lg">質問11</span>　<span className="font-medium">最もよく飲む飲み物は何ですか？</span></p>
             <div className="space-y-0.5 ml-[4.5em]">
               <div className="flex items-start">
                 <span className="mr-2 mt-0.5">□</span>
@@ -867,7 +867,7 @@ const SurveyEditor = () => {
 
           {/* アルコール */}
           <div className="mb-2">
-            <p className="text-lg mb-0.5">質問13　飲酒習慣についてご質問致します。<span className="text-sm font-normal ml-2">裏面の選択肢一覧をご参照ください</span></p>
+            <p className="mb-0.5"><span className="text-lg">質問13</span>　<span className="font-medium">飲酒習慣についてご質問致します。</span><span className="text-sm font-normal ml-2">裏面の選択肢一覧をご参照ください</span></p>
             
             <div className="ml-6">
               <div className="flex items-center mb-0.5 font-bold">
