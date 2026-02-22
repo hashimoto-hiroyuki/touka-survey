@@ -830,8 +830,11 @@ const SurveyEditor = () => {
 
           {/* 飲み物 */}
           <div className="mb-2">
-            <p className="mb-0.5"><span className="text-lg">質問11</span>　<span className="font-medium">最もよく飲む飲み物は何ですか？</span></p>
-            <div className="space-y-0.5 ml-[4.5em]">
+            <div className="flex mb-0.5">
+              <span className="text-lg w-20 shrink-0">質問11</span>
+              <span className="font-medium">最もよく飲む飲み物は何ですか？</span>
+            </div>
+            <div className="space-y-0.5 ml-20">
               <div className="flex items-start">
                 <span className="mr-2 mt-0.5">□</span>
                 <div>
@@ -851,7 +854,7 @@ const SurveyEditor = () => {
             <table className="w-full border-collapse">
               <tbody>
                 <tr>
-                  <td className="py-1 align-top text-lg">質問12</td>
+                  <td className="py-1 align-top text-lg w-20">質問12</td>
                   <td className="py-1" colSpan="2">
                     <div className="mb-0.5 font-medium">お菓子、スイーツなどを週何回食べますか</div>
                     <div className="flex gap-8">
@@ -867,7 +870,10 @@ const SurveyEditor = () => {
 
           {/* アルコール */}
           <div className="mb-2">
-            <p className="mb-0.5"><span className="text-lg">質問13</span>　<span className="font-medium">飲酒習慣についてご質問致します。</span><span className="text-sm font-normal ml-2">裏面の選択肢一覧をご参照ください</span></p>
+            <div className="flex mb-0.5">
+              <span className="text-lg w-20 shrink-0">質問13</span>
+              <span><span className="font-medium">飲酒習慣についてご質問致します。</span><span className="text-sm font-normal ml-2">裏面の選択肢一覧をご参照ください</span></span>
+            </div>
             
             <div className="ml-6">
               <div className="flex items-center mb-0.5 font-bold">
