@@ -928,34 +928,19 @@ const SurveyEditor = () => {
 
           <hr className="border-t-2 border-gray-400 my-2" />
 
-          {/* 医師入力欄 */}
+          {/* 裏面医師記入欄への誘導 */}
           <div className="relative">
-            <p className="font-bold text-lg mb-1">【医師入力欄】</p>
-            <div className="flex items-center mb-1">
-              <span className="w-20 text-lg">質問14</span>
-              <span>歯の抜去位置を記入してください。</span>
-              <div className="ml-4 flex items-center gap-6">
-                <div className="flex items-center gap-4">
-                  <span>□ 右</span>
-                  <span>□ 左</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span>□ 上</span>
-                  <span>□ 下</span>
-                </div>
-                <div className="w-12 h-6 border-b border-gray-500"></div>
-              </div>
+            <div className="flex items-center justify-end mt-2 mr-4">
+              <p className="text-base font-bold">裏面に医師記入欄がございます。</p>
+              <span className="text-3xl ml-2">↘</span>
             </div>
-            <p className="text-sm mt-2">
-              その他、HbA1cなどの記入事項がございましたら、裏面をご利用ください。
-            </p>
 
             {/* QRコード */}
             {clinicName && qrCodeDisplayUrl && (
               <div className="absolute right-0 bottom-0">
-                <img 
-                  src={generateQRCode(qrCodeDisplayUrl, 150)} 
-                  alt="QR Code" 
+                <img
+                  src={generateQRCode(qrCodeDisplayUrl, 150)}
+                  alt="QR Code"
                   className="w-24 h-24 object-contain"
                 />
               </div>
@@ -1080,7 +1065,7 @@ const SurveyEditor = () => {
           </div>
 
           {/* 医師記入欄 */}
-          <div className="border-2 border-gray-700 p-4 mt-6">
+          <div className="mt-6">
             <p className="font-bold text-lg mb-3">【医師記入欄】</p>
 
             {/* 抜歯位置 3行 */}
@@ -1105,7 +1090,6 @@ const SurveyEditor = () => {
             {/* その他記入欄 */}
             <div className="mt-3">
               <span className="text-base">その他　特記すべき事項がありましたら記入をお願いします。（例 HbA1c　2023.10）</span>
-              <div className="mt-2 border-b border-gray-400 h-8"></div>
             </div>
           </div>
 
