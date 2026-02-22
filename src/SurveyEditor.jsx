@@ -667,34 +667,34 @@ const SurveyEditor = () => {
         {/* ===== 1ページ目：アンケート本体 ===== */}
         <div ref={printRef} className="print-page bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[10mm] relative text-base leading-normal box-border mx-auto print:shadow-none">
           
-          {/* タイトル */}
-          <div className="text-center mb-2">
-            <h1 className="text-3xl font-bold inline-block border-b-2 border-black pb-1 whitespace-nowrap">
-              糖化アンケート
-            </h1>
-          </div>
-
-          {/* 医療機関名・患者ID + QRコード */}
-          <div className="flex justify-between items-start mb-2">
-            <div className="flex flex-col text-base">
-              <div className="flex items-end mb-1">
-                <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">医療機関名</span>
-                <span className="text-lg border-b border-gray-500 text-center px-2 font-bold break-keep min-w-[140px]">
-                  {clinicName || '（未選択）'}
-                </span>
-              </div>
-              <div className="flex items-end">
-                <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">患者さんID:</span>
-                <div className="w-40 h-6 border-b border-gray-500"></div>
-              </div>
+          {/* タイトル + QRコード（右上） */}
+          <div className="relative mb-1">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold inline-block border-b-2 border-black pb-1 whitespace-nowrap">
+                糖化アンケート
+              </h1>
             </div>
             {clinicName && qrCodeDisplayUrl && (
               <img
                 src={generateQRCode(qrCodeDisplayUrl, 200)}
                 alt="QR Code"
-                className="w-28 h-28 object-contain"
+                className="w-28 h-28 object-contain absolute top-0 right-0"
               />
             )}
+          </div>
+
+          {/* 医療機関名・患者ID */}
+          <div className="flex flex-col text-base mb-2">
+            <div className="flex items-end mb-1">
+              <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">医療機関名</span>
+              <span className="text-lg border-b border-gray-500 text-center px-2 font-bold break-keep min-w-[140px]">
+                {clinicName || '（未選択）'}
+              </span>
+            </div>
+            <div className="flex items-end">
+              <span className="mr-2 whitespace-nowrap text-sm shrink-0 font-bold">患者さんID:</span>
+              <div className="w-40 h-6 border-b border-gray-500"></div>
+            </div>
           </div>
 
           {/* 基本情報入力欄 */}
