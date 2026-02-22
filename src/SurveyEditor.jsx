@@ -814,12 +814,14 @@ const SurveyEditor = () => {
               <tr>
                 <td className="py-1 align-top text-lg">質問10</td>
                 <td className="py-1" colSpan="2">
-                  <div className="mb-0.5 font-medium">普段、運動をしてますか？</div>
-                  <div className="flex gap-8 ml-8">
-                    <span>□ ほぼ毎日</span>
-                    <span>□ 週2～3回</span>
-                    <span>□ 週1回以下</span>
-                    <span>□ しない</span>
+                  <div className="flex justify-between w-full max-w-2xl">
+                    <span className="font-medium">普段、運動をしてますか？</span>
+                    <div className="flex gap-6">
+                      <span>□ ほぼ毎日</span>
+                      <span>□ 週2～3回</span>
+                      <span>□ 週1回以下</span>
+                      <span>□ しない</span>
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -834,7 +836,7 @@ const SurveyEditor = () => {
                 <span className="mr-2 mt-0.5">□</span>
                 <div>
                   <span className="font-medium">有糖飲料</span>
-                  <span className="text-gray-600 ml-1">（ジュース、炭酸飲料、スポーツドリンク、エナジードリンク、加糖コーヒーなど）</span>
+                  <span className="ml-1">（ジュース、炭酸飲料、スポーツドリンク、エナジードリンク、加糖コーヒーなど）</span>
                 </div>
               </div>
               <div className="flex items-center">
@@ -934,15 +936,16 @@ const SurveyEditor = () => {
             </div>
           </div>
 
-          <hr className="border-t-2 border-gray-400 my-2" />
-
           {/* ご協力テキスト + 裏面誘導（ページ最下部に配置） */}
           <div className="absolute bottom-8 left-0 right-0 px-[10mm]">
-            <div className="text-center text-base font-medium mb-2">
-              ご協力ありがとうございました。
+            <div className="text-center mb-4">
+              <span className="text-base font-medium border border-gray-400 px-8 py-2 inline-block">
+                ご協力ありがとうございました。
+              </span>
             </div>
-            <div className="flex justify-end mr-4">
-              <p className="text-base font-bold">裏面に医師記入欄がございます。</p>
+            <div className="flex justify-end items-center mr-4">
+              <span className="text-base font-bold border border-gray-400 px-4 py-1">裏面に医師記入欄がございます。</span>
+              <span className="text-2xl ml-1">↘</span>
             </div>
           </div>
 
