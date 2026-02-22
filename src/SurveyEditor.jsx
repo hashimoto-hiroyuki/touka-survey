@@ -831,7 +831,7 @@ const SurveyEditor = () => {
           {/* 飲み物 */}
           <div className="mb-2">
             <p className="text-lg mb-0.5">質問11　最もよく飲む飲み物は何ですか？</p>
-            <div className="space-y-0.5">
+            <div className="space-y-0.5 ml-[4.5em]">
               <div className="flex items-start">
                 <span className="mr-2 mt-0.5">□</span>
                 <div>
