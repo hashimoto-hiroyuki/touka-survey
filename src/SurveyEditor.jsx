@@ -1008,7 +1008,7 @@ const SurveyEditor = () => {
                 <tbody>
                   {['1回', '2回', '3回', '4回', '5回', '6回', '7回（毎日）'].map((item, idx) => (
                     <tr key={idx}>
-                      <td className={`px-3 py-2 text-base border border-gray-400 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                      <td className={`px-3 py-2 text-base border border-gray-400 whitespace-nowrap ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                         {item}
                       </td>
                     </tr>
