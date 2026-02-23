@@ -298,7 +298,7 @@ function rebuildFullForm() {
   // 性別（Q9）
   const q9 = form.addMultipleChoiceItem()
     .setTitle('9. 性別')
-    .setChoiceValues(['男性', '女性', 'その他', '回答しない'])
+    .setChoiceValues(['男', '女', '回答しない'])
     .setRequired(true);
 
   // 血液型（Q10）
@@ -335,8 +335,8 @@ function rebuildFullForm() {
   // --- 生活習慣セクション ---
   const sec13 = form.addPageBreakItem().setTitle('生活習慣について');
   form.addMultipleChoiceItem().setTitle('21. 普段、運動をしてますか？').setChoiceValues(['ほぼ毎日', '週2～3回', '週1回以下', 'しない']).setRequired(true);
-  form.addCheckboxItem().setTitle('22. 普段、飲む物は何ですか？').setChoiceValues(['有糖飲料(ジュース、炭酸飲料、スポーツドリンク、加糖コーヒーなど)', '無糖飲料(お茶、水、炭酸水、無糖コーヒーなど)']).setRequired(true);
-  form.addMultipleChoiceItem().setTitle('23. 普段、お菓子、スイーツなどは食べますか？').setChoiceValues(['ほぼ毎日', '週2～3回', '週1回以下', '食べない']).setRequired(true);
+  form.addCheckboxItem().setTitle('22. 最もよく飲む飲み物は何ですか？').setChoiceValues(['有糖飲料(ジュース、炭酸飲料、スポーツドリンク、加糖コーヒーなど)', '無糖飲料(お茶、水、炭酸水、無糖コーヒーなど)']).setRequired(true);
+  form.addMultipleChoiceItem().setTitle('23. お菓子、スイーツなどを週何回食べますか').setChoiceValues(['ほぼ毎日', '週2～3回', '週1回以下', '食べない']).setRequired(true);
 
   const q24 = form.addMultipleChoiceItem().setTitle('24. お酒（ビール、ワイン、焼酎、ウイスキーなど）を習慣的に飲みますか？').setRequired(true);
 
@@ -376,8 +376,8 @@ function rebuildFullForm() {
   // --- 5. 条件分岐の設定 ---
   q13.setChoices([q13.createChoice('はい', sec6), q13.createChoice('いいえ', sec7)]);
   q15.setChoices([q15.createChoice('はい', sec8), q15.createChoice('いいえ', sec9)]);
-  q17.setChoices([q17.createChoice('はい', sec11), q17.createChoice('いいえ', sec11)]);
-  q19.setChoices([q19.createChoice('はい', sec13), q19.createChoice('いいえ', sec13)]);
+  q17.setChoices([q17.createChoice('はい', sec11), q17.createChoice('いいえ', sec11), q17.createChoice('わからない', sec11)]);
+  q19.setChoices([q19.createChoice('はい', sec13), q19.createChoice('いいえ', sec13), q19.createChoice('わからない', sec13)]);
 
   sec6.setGoToPage(sec7);
   sec8.setGoToPage(sec9);
