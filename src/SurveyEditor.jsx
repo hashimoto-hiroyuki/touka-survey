@@ -1025,10 +1025,10 @@ const SurveyEditor = () => {
               <table className="w-full border-collapse">
                 <tbody>
                   {[
-                    { num: 1, name: '350ml缶' },
-                    { num: 2, name: '500ml缶' },
-                    { num: 3, name: '750mlビン' },
-                    { num: 4, name: '375mlビン' },
+                    { num: 1, name: '350ml缶（缶ビール普通サイズ）' },
+                    { num: 2, name: '500ml缶（缶ビール大サイズ）' },
+                    { num: 3, name: '750mlビン（ワイン普通サイズ）' },
+                    { num: 4, name: '375mlビン（ワインハーフボトル）' },
                     { num: 5, name: 'コップ' },
                     { num: 6, name: '水割り' },
                     { num: 7, name: 'お湯割り' },
