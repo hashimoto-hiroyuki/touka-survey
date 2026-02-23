@@ -971,7 +971,7 @@ const SurveyEditor = () => {
           <div className="flex justify-between gap-4 px-1" style={{ minHeight: '45%' }}>
             
             {/* ① お酒の種類 */}
-            <div className="w-[20%]">
+            <div className="w-[18%]">
               <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ①お酒の種類
               </div>
@@ -1000,7 +1000,7 @@ const SurveyEditor = () => {
             </div>
 
             {/* ② 頻度 */}
-            <div className="w-[15%]">
+            <div className="w-[17%]">
               <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ②週に何回
               </div>
@@ -1025,10 +1025,10 @@ const SurveyEditor = () => {
               <table className="w-full border-collapse">
                 <tbody>
                   {[
-                    { num: 1, name: '350ml缶（缶ビール普通サイズ）' },
-                    { num: 2, name: '500ml缶（缶ビール大サイズ）' },
-                    { num: 3, name: '750mlビン（ワイン普通サイズ）' },
-                    { num: 4, name: '375mlビン（ワインハーフボトル）' },
+                    { num: 1, name: '350ml 缶（缶ビール普通サイズ）' },
+                    { num: 2, name: '500ml 缶（缶ビール大サイズ）' },
+                    { num: 3, name: '750ml ビン（ワイン普通サイズ）' },
+                    { num: 4, name: '375ml ビン（ワインハーフボトル）' },
                     { num: 5, name: 'コップ' },
                     { num: 6, name: '水割り' },
                     { num: 7, name: 'お湯割り' },
