@@ -971,7 +971,7 @@ const SurveyEditor = () => {
           <div className="flex justify-between gap-4 px-1" style={{ minHeight: '45%' }}>
             
             {/* ① お酒の種類 */}
-            <div className="flex-1">
+            <div className="w-[20%]">
               <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ①お酒の種類
               </div>
@@ -1000,7 +1000,7 @@ const SurveyEditor = () => {
             </div>
 
             {/* ② 頻度 */}
-            <div className="flex-1">
+            <div className="w-[15%]">
               <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ②週に何回
               </div>
@@ -1018,7 +1018,7 @@ const SurveyEditor = () => {
             </div>
 
             {/* ③ サイズ・飲み方 */}
-            <div className="flex-1">
+            <div className="w-[50%]">
               <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ③サイズ/飲み方
               </div>
@@ -1049,7 +1049,7 @@ const SurveyEditor = () => {
             </div>
 
             {/* ④ 数量 */}
-            <div className="flex-1">
+            <div className="w-[15%]">
               <div className="text-sm font-bold px-2 py-2 text-center whitespace-nowrap">
                 ④数量
               </div>
