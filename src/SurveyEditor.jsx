@@ -8,7 +8,7 @@ const SurveyEditor = () => {
   const [formBaseUrl, setFormBaseUrl] = useState(
     'https://docs.google.com/forms/d/e/1FAIpQLSfK29rSSrvSjt7onYIO5gDCLDhtj776z-EhKfTxf2gUlGPBlQ/viewform'
   );
-  const [entryId, setEntryId] = useState('726912695');
+  const [entryId, setEntryId] = useState('485982439');
   
   // === 医療機関リスト ===
   const [hospitalList, setHospitalList] = useState([]);
