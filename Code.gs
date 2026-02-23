@@ -338,7 +338,7 @@ function rebuildFullForm() {
   form.addCheckboxItem().setTitle('22. 最もよく飲む飲み物は何ですか？').setChoiceValues(['有糖飲料(ジュース、炭酸飲料、スポーツドリンク、加糖コーヒーなど)', '無糖飲料(お茶、水、炭酸水、無糖コーヒーなど)']).setRequired(true);
   form.addMultipleChoiceItem().setTitle('23. お菓子、スイーツなどを週何回食べますか').setChoiceValues(['ほぼ毎日', '週2～3回', '週1回以下', '食べない']).setRequired(true);
 
-  const q24 = form.addMultipleChoiceItem().setTitle('24. お酒（ビール、ワイン、焼酎、ウイスキーなど）を習慣的に飲みますか？').setRequired(true);
+  const q24 = form.addMultipleChoiceItem().setTitle('24. 飲酒習慣についてご質問致します。').setRequired(true);
 
   // --- 飲酒詳細セクション生成関数 ---
   function createDrinkingSec(title, baseNum) {
